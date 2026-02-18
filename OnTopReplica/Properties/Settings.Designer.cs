@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnTopReplica.Properties {
+namespace ProfilesOnTopReplica.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

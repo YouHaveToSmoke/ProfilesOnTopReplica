@@ -1,0 +1,11 @@
+# VS/Build
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dtbcache.json
+
+# Upgrade-Logs von Visual Studio
+UpgradeLog*.htm

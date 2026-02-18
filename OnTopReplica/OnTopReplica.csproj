@@ -8,8 +8,8 @@
     <ProjectGuid>{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OnTopReplica</RootNamespace>
-    <AssemblyName>OnTopReplica</AssemblyName>
+    <RootNamespace>ProfilesOnTopReplica</RootNamespace>
+    <AssemblyName>ProfilesOnTopReplica</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>new-flat-icon.ico</ApplicationIcon>
