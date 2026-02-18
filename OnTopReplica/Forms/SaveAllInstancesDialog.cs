@@ -49,12 +49,12 @@ namespace OnTopReplica.Forms {
             this.lblInfo.AutoSize = true;
             this.lblInfo.Location = new Point(12, 9);
             this.lblInfo.Size = new Size(560, 26);
-            this.lblInfo.Text = "Alle offenen OnTopReplica-Fenster werden als ein Profil mit mehreren Regionen gespeichert.\r\nGeben Sie für jede Region einen eindeutigen Namen ein.";
+            this.lblInfo.Text = "Saves all currently opened OnTopReplica windows and their relative coordinates.\r\nPlease select a unique name.";
             
             // lblProfileName
             this.lblProfileName.AutoSize = true;
             this.lblProfileName.Location = new Point(12, 45);
-            this.lblProfileName.Text = "Profilname:";
+            this.lblProfileName.Text = "Profilename:";
             
             // txtProfileName
             this.txtProfileName.Location = new Point(90, 42);
@@ -98,7 +98,7 @@ namespace OnTopReplica.Forms {
                 var lblName = new Label();
                 lblName.AutoSize = true;
                 lblName.Location = new Point(10, 55);
-                lblName.Text = "Name für diese Region:";
+                lblName.Text = "Name of region:";
                 lblName.Font = this.Font;
                 groupBox.Controls.Add(lblName);
                 
@@ -115,7 +115,7 @@ namespace OnTopReplica.Forms {
                 var lblAnchor = new Label();
                 lblAnchor.AutoSize = true;
                 lblAnchor.Location = new Point(10, 85);
-                lblAnchor.Text = "Region-Anker:";
+                lblAnchor.Text = "Region-anchor:";
                 lblAnchor.Font = this.Font;
                 groupBox.Controls.Add(lblAnchor);
                 
@@ -126,7 +126,7 @@ namespace OnTopReplica.Forms {
                 cmbAnchor.Size = new Size(150, 21);
                 cmbAnchor.TabIndex = instanceNumber * 4 - 1;
                 cmbAnchor.Font = this.Font;
-                cmbAnchor.Items.AddRange(new object[] { "Oben Links", "Oben Rechts", "Unten Links", "Unten Rechts" });
+                cmbAnchor.Items.AddRange(new object[] { "Top left", "Top right", "Bottom left", "Bottom right" });
                 cmbAnchor.SelectedIndex = 0;
                 config.AnchorComboBox = cmbAnchor;
                 groupBox.Controls.Add(cmbAnchor);
@@ -135,7 +135,7 @@ namespace OnTopReplica.Forms {
                 var chkScale = new CheckBox();
                 chkScale.Location = new Point(10, 110);
                 chkScale.Size = new Size(390, 30);
-                chkScale.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+                chkScale.Text = "Scale replicas with relative size of target";
                 chkScale.TabIndex = instanceNumber * 4;
                 chkScale.Font = this.Font;
                 chkScale.Checked = false;
@@ -146,7 +146,7 @@ namespace OnTopReplica.Forms {
                 var btnFocus = new Button();
                 btnFocus.Location = new Point(410, 108);
                 btnFocus.Size = new Size(90, 25);
-                btnFocus.Text = "Blinken";
+                btnFocus.Text = "Show connected replica";
                 btnFocus.Font = this.Font;
                 btnFocus.TabIndex = instanceNumber * 4 + 1;
                 btnFocus.Click += (s, e) => FocusInstance(instance);
@@ -172,7 +172,7 @@ namespace OnTopReplica.Forms {
             this.btnCancel.Location = new Point(497, 420);
             this.btnCancel.Size = new Size(75, 23);
             this.btnCancel.TabIndex = 1001;
-            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             
             // SaveAllInstancesDialog
@@ -189,14 +189,14 @@ namespace OnTopReplica.Forms {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Alle Fenster als Profil speichern";
+            this.Text = "Save all opened replica as new profile";
             
             this.ResumeLayout(false);
             this.PerformLayout();
         }
         
         private string GetInstanceDescription(MainForm instance, int number) {
-            string windowTitle = "Kein Fenster";
+            string windowTitle = "No window";
 
             if (instance.CurrentThumbnailWindowHandle != null) {
                 windowTitle = instance.CurrentThumbnailWindowHandle.Title;
@@ -208,14 +208,14 @@ namespace OnTopReplica.Forms {
                 }
             }
 
-            return $"Fenster {number}: {windowTitle}";
+            return $"Window {number}: {windowTitle}";
         }
 
         private string GetInstanceDetails(MainForm instance) {
             var details = new System.Text.StringBuilder();
 
             // Position and size
-            details.AppendLine($"Position: X={instance.Location.X}, Y={instance.Location.Y}  |  Größe: {instance.Size.Width}x{instance.Size.Height}");
+            details.AppendLine($"Position: X={instance.Location.X}, Y={instance.Location.Y}  |  Size: {instance.Size.Width}x{instance.Size.Height}");
 
             // Region info if any
             if (instance.SelectedThumbnailRegion != null) {
@@ -223,7 +223,7 @@ namespace OnTopReplica.Forms {
                 details.Append($"Region: {region.Bounds.Width}x{region.Bounds.Height} ");
                 details.Append(region.Relative ? "(Relativ)" : "(Absolut)");
             } else {
-                details.Append("Vollständiges Fenster (keine Region)");
+                details.Append("Whole window without region");
             }
 
             return details.ToString();
@@ -269,8 +269,8 @@ namespace OnTopReplica.Forms {
             // Validate profile name
             if (string.IsNullOrWhiteSpace(txtProfileName.Text)) {
                 MessageBox.Show(
-                    "Bitte geben Sie einen Profilnamen ein.",
-                    "Eingabe erforderlich",
+                    "Please enter a name for this Profile.",
+                    "Profile not named",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
@@ -284,8 +284,8 @@ namespace OnTopReplica.Forms {
 
                 if (string.IsNullOrWhiteSpace(config.RegionName)) {
                     MessageBox.Show(
-                        "Bitte geben Sie für jede Region einen Namen ein.",
-                        "Eingabe erforderlich",
+                        "Please enter a name for all regions.",
+                        "One or more regions not named",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );

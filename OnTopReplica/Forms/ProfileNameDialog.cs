@@ -90,7 +90,7 @@ namespace OnTopReplica.Forms {
             this.rbTopLeft.Size = new System.Drawing.Size(120, 17);
             this.rbTopLeft.TabIndex = 0;
             this.rbTopLeft.TabStop = true;
-            this.rbTopLeft.Text = "Oben Links";
+            this.rbTopLeft.Text = "Top left";
             this.rbTopLeft.UseVisualStyleBackColor = true;
             // 
             // rbTopRight
@@ -100,7 +100,7 @@ namespace OnTopReplica.Forms {
             this.rbTopRight.Name = "rbTopRight";
             this.rbTopRight.Size = new System.Drawing.Size(120, 17);
             this.rbTopRight.TabIndex = 1;
-            this.rbTopRight.Text = "Oben Rechts";
+            this.rbTopRight.Text = "Top right";
             this.rbTopRight.UseVisualStyleBackColor = true;
             // 
             // rbBottomLeft
@@ -110,7 +110,7 @@ namespace OnTopReplica.Forms {
             this.rbBottomLeft.Name = "rbBottomLeft";
             this.rbBottomLeft.Size = new System.Drawing.Size(120, 17);
             this.rbBottomLeft.TabIndex = 2;
-            this.rbBottomLeft.Text = "Unten Links";
+            this.rbBottomLeft.Text = "Bottom left";
             this.rbBottomLeft.UseVisualStyleBackColor = true;
             // 
             // rbBottomRight
@@ -120,7 +120,7 @@ namespace OnTopReplica.Forms {
             this.rbBottomRight.Name = "rbBottomRight";
             this.rbBottomRight.Size = new System.Drawing.Size(120, 17);
             this.rbBottomRight.TabIndex = 3;
-            this.rbBottomRight.Text = "Unten Rechts";
+            this.rbBottomRight.Text = "Bottom right";
             this.rbBottomRight.UseVisualStyleBackColor = true;
             // 
             // chkScaleWithSource
@@ -130,7 +130,7 @@ namespace OnTopReplica.Forms {
             this.chkScaleWithSource.Name = "chkScaleWithSource";
             this.chkScaleWithSource.Size = new System.Drawing.Size(360, 17);
             this.chkScaleWithSource.TabIndex = 2;
-            this.chkScaleWithSource.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+            this.chkScaleWithSource.Text = "Scale replicas with relative size of target";
             this.chkScaleWithSource.UseVisualStyleBackColor = true;
             // 
             // btnOK
@@ -169,7 +169,7 @@ namespace OnTopReplica.Forms {
             this.MinimizeBox = false;
             this.Name = "ProfileNameDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Profil";
+            this.Text = "Profile";
             this.grpAnchor.ResumeLayout(false);
             this.grpAnchor.PerformLayout();
             this.ResumeLayout(false);
@@ -180,8 +180,8 @@ namespace OnTopReplica.Forms {
         private void BtnOK_Click(object sender, EventArgs e) {
             if (string.IsNullOrWhiteSpace(txtProfileName.Text)) {
                 MessageBox.Show(
-                    "Bitte geben Sie einen Profilnamen ein.",
-                    "Eingabe erforderlich",
+                    "Please enter a name for this Profile.",
+                    "Profile not named",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );

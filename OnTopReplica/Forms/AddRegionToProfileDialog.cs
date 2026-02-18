@@ -51,7 +51,7 @@ namespace OnTopReplica.Forms {
             this.lblPrompt.AutoSize = true;
             this.lblPrompt.Location = new System.Drawing.Point(12, 15);
             this.lblPrompt.Size = new System.Drawing.Size(360, 13);
-            this.lblPrompt.Text = "Name für diese Region/Konfiguration:";
+            this.lblPrompt.Text = "Name this configuration:";
             
             // txtRegionName
             this.txtRegionName.Location = new System.Drawing.Point(12, 35);
@@ -68,7 +68,7 @@ namespace OnTopReplica.Forms {
             this.grpAnchor.Size = new System.Drawing.Size(360, 90);
             this.grpAnchor.TabIndex = 1;
             this.grpAnchor.TabStop = false;
-            this.grpAnchor.Text = "Region-Anker";
+            this.grpAnchor.Text = "Region-anchor";
 
             // rbTopLeft
             this.rbTopLeft.AutoSize = true;
@@ -78,7 +78,7 @@ namespace OnTopReplica.Forms {
             this.rbTopLeft.Size = new System.Drawing.Size(120, 17);
             this.rbTopLeft.TabIndex = 0;
             this.rbTopLeft.TabStop = true;
-            this.rbTopLeft.Text = "Oben Links";
+            this.rbTopLeft.Text = "Top left";
             this.rbTopLeft.UseVisualStyleBackColor = true;
 
             // rbTopRight
@@ -87,7 +87,7 @@ namespace OnTopReplica.Forms {
             this.rbTopRight.Name = "rbTopRight";
             this.rbTopRight.Size = new System.Drawing.Size(120, 17);
             this.rbTopRight.TabIndex = 1;
-            this.rbTopRight.Text = "Oben Rechts";
+            this.rbTopRight.Text = "Top right";
             this.rbTopRight.UseVisualStyleBackColor = true;
 
             // rbBottomLeft
@@ -96,7 +96,7 @@ namespace OnTopReplica.Forms {
             this.rbBottomLeft.Name = "rbBottomLeft";
             this.rbBottomLeft.Size = new System.Drawing.Size(120, 17);
             this.rbBottomLeft.TabIndex = 2;
-            this.rbBottomLeft.Text = "Unten Links";
+            this.rbBottomLeft.Text = "Bottom left";
             this.rbBottomLeft.UseVisualStyleBackColor = true;
 
             // rbBottomRight
@@ -105,7 +105,7 @@ namespace OnTopReplica.Forms {
             this.rbBottomRight.Name = "rbBottomRight";
             this.rbBottomRight.Size = new System.Drawing.Size(120, 17);
             this.rbBottomRight.TabIndex = 3;
-            this.rbBottomRight.Text = "Unten Rechts";
+            this.rbBottomRight.Text = "Bottom right";
             this.rbBottomRight.UseVisualStyleBackColor = true;
 
             // chkScaleWithSource
@@ -114,7 +114,7 @@ namespace OnTopReplica.Forms {
             this.chkScaleWithSource.Name = "chkScaleWithSource";
             this.chkScaleWithSource.Size = new System.Drawing.Size(360, 17);
             this.chkScaleWithSource.TabIndex = 2;
-            this.chkScaleWithSource.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+            this.chkScaleWithSource.Text = "Scale replicas with relative size of target";
             this.chkScaleWithSource.UseVisualStyleBackColor = true;
 
             // btnOK
@@ -130,7 +130,7 @@ namespace OnTopReplica.Forms {
             this.btnCancel.Location = new System.Drawing.Point(297, 195);
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
 
             // AddRegionToProfileDialog
@@ -147,7 +147,7 @@ namespace OnTopReplica.Forms {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Region hinzufügen";
+            this.Text = "Add region";
             this.grpAnchor.ResumeLayout(false);
             this.grpAnchor.PerformLayout();
             this.ResumeLayout(false);
@@ -157,8 +157,8 @@ namespace OnTopReplica.Forms {
         private void BtnOK_Click(object sender, EventArgs e) {
             if (string.IsNullOrWhiteSpace(txtRegionName.Text)) {
                 MessageBox.Show(
-                    "Bitte geben Sie einen Namen für die Region ein.",
-                    "Eingabe erforderlich",
+                    "Select unique name for this region.",
+                    "Name is missing",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );

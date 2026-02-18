@@ -30,7 +30,7 @@ namespace OnTopReplica.Forms {
             this.lblPrompt.AutoSize = true;
             this.lblPrompt.Location = new System.Drawing.Point(12, 15);
             this.lblPrompt.Size = new System.Drawing.Size(250, 13);
-            this.lblPrompt.Text = "Wählen Sie ein Profil zum Laden:";
+            this.lblPrompt.Text = "Select a profile:";
             
             // lstProfiles
             this.lstProfiles.FormattingEnabled = true;
@@ -43,7 +43,7 @@ namespace OnTopReplica.Forms {
             this.btnLoad.Location = new System.Drawing.Point(216, 245);
             this.btnLoad.Size = new System.Drawing.Size(75, 23);
             this.btnLoad.TabIndex = 1;
-            this.btnLoad.Text = "Laden";
+            this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += BtnLoad_Click;
             
@@ -52,7 +52,7 @@ namespace OnTopReplica.Forms {
             this.btnCancel.Location = new System.Drawing.Point(297, 245);
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             
             // ProfileSelectionDialog
@@ -67,7 +67,7 @@ namespace OnTopReplica.Forms {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Profil laden";
+            this.Text = "Load profile";
             
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -79,7 +79,7 @@ namespace OnTopReplica.Forms {
             var profiles = ProfileManager.GetAllProfiles();
             
             if (profiles.Count == 0) {
-                lstProfiles.Items.Add("(Keine Profile vorhanden)");
+                lstProfiles.Items.Add("(No profiles found)");
                 lstProfiles.Enabled = false;
                 btnLoad.Enabled = false;
             }
@@ -97,8 +97,8 @@ namespace OnTopReplica.Forms {
         private void BtnLoad_Click(object sender, EventArgs e) {
             if (lstProfiles.SelectedItem == null) {
                 MessageBox.Show(
-                    "Bitte wählen Sie ein Profil aus.",
-                    "Auswahl erforderlich",
+                    "Select a profile",
+                    "Selection required",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );

@@ -38,7 +38,7 @@ namespace OnTopReplica.Forms {
             this.lblPrompt.AutoSize = true;
             this.lblPrompt.Location = new System.Drawing.Point(12, 15);
             this.lblPrompt.Size = new System.Drawing.Size(360, 13);
-            this.lblPrompt.Text = "Wählen Sie eine Region zum Laden:";
+            this.lblPrompt.Text = "Select a region:";
             
             // lstRegions
             this.lstRegions.FormattingEnabled = true;
@@ -51,7 +51,7 @@ namespace OnTopReplica.Forms {
             this.btnLoad.Location = new System.Drawing.Point(135, 195);
             this.btnLoad.Size = new System.Drawing.Size(75, 23);
             this.btnLoad.TabIndex = 1;
-            this.btnLoad.Text = "Laden";
+            this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += BtnLoad_Click;
             
@@ -59,7 +59,7 @@ namespace OnTopReplica.Forms {
             this.btnLoadAll.Location = new System.Drawing.Point(216, 195);
             this.btnLoadAll.Size = new System.Drawing.Size(75, 23);
             this.btnLoadAll.TabIndex = 2;
-            this.btnLoadAll.Text = "Alle laden";
+            this.btnLoadAll.Text = "Load all regions";
             this.btnLoadAll.UseVisualStyleBackColor = true;
             this.btnLoadAll.Click += BtnLoadAll_Click;
             
@@ -68,7 +68,7 @@ namespace OnTopReplica.Forms {
             this.btnCancel.Location = new System.Drawing.Point(297, 195);
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             
             // ProfileRegionSelectionDialog
@@ -84,7 +84,7 @@ namespace OnTopReplica.Forms {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Region auswählen";
+            this.Text = "Select region";
             
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -94,7 +94,7 @@ namespace OnTopReplica.Forms {
             lstRegions.Items.Clear();
             
             if (_profile.RegionConfigurations.Count == 0) {
-                lstRegions.Items.Add("(Keine Regionen vorhanden)");
+                lstRegions.Items.Add("(No region found)");
                 lstRegions.Enabled = false;
                 btnLoad.Enabled = false;
                 btnLoadAll.Enabled = false;
@@ -115,8 +115,8 @@ namespace OnTopReplica.Forms {
         private void BtnLoad_Click(object sender, EventArgs e) {
             if (lstRegions.SelectedItem == null) {
                 MessageBox.Show(
-                    "Bitte wählen Sie eine Region aus.",
-                    "Auswahl erforderlich",
+                    "Please select a region.",
+                    "No region selected",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
