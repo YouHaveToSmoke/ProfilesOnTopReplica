@@ -8,7 +8,7 @@
     <ProjectGuid>{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProfilesOnTopReplica</RootNamespace>
+    <RootNamespace>OnTopReplica</RootNamespace>
     <AssemblyName>ProfilesOnTopReplica</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -304,6 +304,7 @@
     <EmbeddedResource Include="AppStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddRegionToExistingProfileDialog.resx">
       <DependentUpon>AddRegionToExistingProfileDialog.cs</DependentUpon>
