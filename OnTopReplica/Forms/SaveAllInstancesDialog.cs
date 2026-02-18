@@ -237,21 +237,23 @@ namespace OnTopReplica.Forms {
                     var originalOpacity = instance.Opacity;
                     var originalTopMost = instance.TopMost;
 
-                    // Flash effect: make it more visible temporarily
+                    // Flash effect: works even when borderless
                     instance.TopMost = true;
                     instance.BringToFront();
                     instance.Activate();
 
-                    // Flash by changing opacity
+                    // Flash sequence: 100% -> 0% -> original (quick blink)
                     var timer = new System.Windows.Forms.Timer();
                     int flashCount = 0;
-                    timer.Interval = 150;
+                    timer.Interval = 100; // Fast blink
                     timer.Tick += (s, e) => {
                         flashCount++;
-                        if (flashCount <= 6) {
-                            instance.Opacity = (flashCount % 2 == 0) ? originalOpacity : Math.Max(0.3, originalOpacity - 0.4);
-                        } else {
-                            instance.Opacity = originalOpacity;
+                        if (flashCount == 1) {
+                            instance.Opacity = 1.0; // Full opaque
+                        } else if (flashCount == 2) {
+                            instance.Opacity = 0.0; // Invisible
+                        } else if (flashCount == 3) {
+                            instance.Opacity = originalOpacity; // Back to original
                             instance.TopMost = originalTopMost;
                             timer.Stop();
                             timer.Dispose();

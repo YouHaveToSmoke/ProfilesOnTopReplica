@@ -89,7 +89,7 @@ namespace OnTopReplica {
 
             // Window position and size
             config.WindowLocation = this.Location;
-            config.WindowSize = this.Size;
+            config.WindowSize = this.ClientSize; // Store ClientSize to avoid DWM border issues
 
             // Calculate relative offset to target window (if available)
             if (CurrentThumbnailWindowHandle != null) {
@@ -361,16 +361,18 @@ namespace OnTopReplica {
                 Log.Write($"Using absolute position: ({config.WindowLocation.X}, {config.WindowLocation.Y})");
             }
 
-            this.Size = config.WindowSize;
-            
-            // Apply visual settings
+            // Apply visual settings FIRST (especially chrome, which affects size calculation)
             this.Opacity = config.Opacity;
             this.ClickThroughEnabled = config.ClickThrough;
             this.ClickForwardingEnabled = config.ClickForwarding;
             this.IsChromeVisible = config.ChromeVisible;
             this.PositionLock = config.PositionLock;
             this.TopMost = config.TopMost;
-            
+
+            // Set ClientSize AFTER chrome state to avoid DWM border calculation issues
+            this.ClientSize = config.WindowSize;
+
+            Log.Write($"Applied visual settings: Opacity={config.Opacity:P0}, Chrome={config.ChromeVisible}, ClickThrough={config.ClickThrough}, ClickForward={config.ClickForwarding}, TopMost={config.TopMost}");
             Log.Write("Profile configuration applied successfully: " + config.Name);
         }
         
@@ -574,25 +576,25 @@ namespace OnTopReplica {
             for (int i = 1; i < profile.RegionConfigurations.Count; i++) {
                 try {
                     var config = profile.RegionConfigurations[i];
+                    var configToApply = config; // Capture config in closure correctly
 
                     // Create new MainForm window with default startup options
                     var newForm = new MainForm(StartupOptions.Factory.CreateOptions(new string[0]));
 
-                    // Set size before showing
+                    // Set startup position
                     newForm.StartPosition = FormStartPosition.Manual;
-                    newForm.Size = config.WindowSize;
 
-                    // Temporarily position off-screen to avoid flickering
+                    // Temporarily position off-screen to avoid flickering during setup
                     newForm.Location = new Point(-10000, -10000);
 
                     // Apply the configuration after form is shown
                     newForm.Shown += (sender, e) => {
                         try {
                             var form = (MainForm)sender;
-                            form.ApplyProfileConfiguration(profile, config);
+                            form.ApplyProfileConfiguration(profile, configToApply);
                         }
                         catch (Exception ex) {
-                            Log.WriteException($"Error applying configuration {config.Name}", ex);
+                            Log.WriteException($"Error applying configuration {configToApply.Name}", ex);
                         }
                     };
 
@@ -805,7 +807,7 @@ namespace OnTopReplica {
 
             // Window position and size
             config.WindowLocation = instance.Location;
-            config.WindowSize = instance.Size;
+            config.WindowSize = instance.ClientSize; // Store ClientSize to avoid DWM border issues
 
             // Calculate relative offset to target window (if available)
             if (instance.CurrentThumbnailWindowHandle != null) {
