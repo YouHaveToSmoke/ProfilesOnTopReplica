@@ -26,6 +26,24 @@ namespace OnTopReplica {
 
         public bool ScaleWithSourceWindow { get; set; }
 
+        /// <summary>
+        /// Offset of the replica window relative to the target window's top-left corner.
+        /// Used to position replica relative to target window when loading profile.
+        /// </summary>
+        public Point? RelativeOffsetToTargetWindow { get; set; }
+
+        /// <summary>
+        /// Relative offset as percentage of target window size (X: 0.0-1.0, Y: 0.0-1.0).
+        /// Allows positioning to scale with different window resolutions.
+        /// </summary>
+        public PointF? RelativeOffsetPercent { get; set; }
+
+        /// <summary>
+        /// Target window size when the profile was saved.
+        /// Used to scale relative positions when target window resolution changes.
+        /// </summary>
+        public Size? TargetWindowSize { get; set; }
+
         public Point WindowLocation { get; set; }
         
         public Size WindowSize { get; set; }

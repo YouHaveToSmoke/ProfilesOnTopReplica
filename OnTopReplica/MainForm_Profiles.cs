@@ -91,6 +91,36 @@ namespace OnTopReplica {
             config.WindowLocation = this.Location;
             config.WindowSize = this.Size;
 
+            // Calculate relative offset to target window (if available)
+            if (CurrentThumbnailWindowHandle != null) {
+                try {
+                    var targetWindowRect = Native.WindowMethods.GetWindowRectangle(CurrentThumbnailWindowHandle.Handle);
+                    var targetSize = new Size(targetWindowRect.Width, targetWindowRect.Height);
+
+                    // Absolute offset in pixels
+                    var offsetX = this.Location.X - targetWindowRect.Left;
+                    var offsetY = this.Location.Y - targetWindowRect.Top;
+
+                    config.RelativeOffsetToTargetWindow = new Point(offsetX, offsetY);
+                    config.TargetWindowSize = targetSize;
+
+                    // Relative offset as percentage of target window size
+                    if (targetSize.Width > 0 && targetSize.Height > 0) {
+                        config.RelativeOffsetPercent = new PointF(
+                            (float)offsetX / targetSize.Width,
+                            (float)offsetY / targetSize.Height
+                        );
+                        Log.Write($"Saved relative offset: pixels({offsetX}, {offsetY}), percent({config.RelativeOffsetPercent.Value.X:P2}, {config.RelativeOffsetPercent.Value.Y:P2}), target size({targetSize.Width}x{targetSize.Height})");
+                    }
+                }
+                catch (Exception ex) {
+                    Log.Write($"Warning: Could not calculate relative offset to target window: {ex.Message}");
+                    config.RelativeOffsetToTargetWindow = null;
+                    config.RelativeOffsetPercent = null;
+                    config.TargetWindowSize = null;
+                }
+            }
+
             // Visual settings
             config.Opacity = this.Opacity;
             config.ClickThrough = this.ClickThroughEnabled;
@@ -278,10 +308,59 @@ namespace OnTopReplica {
             
             // Set the thumbnail
             SetThumbnail(handle, region);
-            
+
             // Apply window position and size
             this.StartPosition = FormStartPosition.Manual;
-            this.Location = config.WindowLocation;
+
+            // Use relative offset if available, otherwise fall back to absolute position
+            if (config.RelativeOffsetPercent.HasValue && config.TargetWindowSize.HasValue && handle != null) {
+                try {
+                    var targetWindowRect = Native.WindowMethods.GetWindowRectangle(handle.Handle);
+                    var currentTargetSize = new Size(targetWindowRect.Width, targetWindowRect.Height);
+
+                    // Calculate new offset based on current target window size
+                    // Use percentage to scale with resolution changes
+                    int offsetX = (int)(config.RelativeOffsetPercent.Value.X * currentTargetSize.Width);
+                    int offsetY = (int)(config.RelativeOffsetPercent.Value.Y * currentTargetSize.Height);
+
+                    var newLocation = new Point(
+                        targetWindowRect.Left + offsetX,
+                        targetWindowRect.Top + offsetY
+                    );
+
+                    this.Location = newLocation;
+                    Log.Write($"Positioned replica relative to target (scaled): target@({targetWindowRect.Left},{targetWindowRect.Top}) size({currentTargetSize.Width}x{currentTargetSize.Height}), offset({offsetX}px,{offsetY}px) -> replica@({newLocation.X},{newLocation.Y})");
+
+                    if (config.TargetWindowSize.Value != currentTargetSize) {
+                        Log.Write($"Target window size changed: {config.TargetWindowSize.Value.Width}x{config.TargetWindowSize.Value.Height} -> {currentTargetSize.Width}x{currentTargetSize.Height}");
+                    }
+                }
+                catch (Exception ex) {
+                    Log.Write($"Warning: Could not position relative to target window, using absolute position: {ex.Message}");
+                    this.Location = config.WindowLocation;
+                }
+            }
+            else if (config.RelativeOffsetToTargetWindow.HasValue && handle != null) {
+                // Fallback: use pixel offset (for old profiles without percentage)
+                try {
+                    var targetWindowRect = Native.WindowMethods.GetWindowRectangle(handle.Handle);
+                    var newLocation = new Point(
+                        targetWindowRect.Left + config.RelativeOffsetToTargetWindow.Value.X,
+                        targetWindowRect.Top + config.RelativeOffsetToTargetWindow.Value.Y
+                    );
+                    this.Location = newLocation;
+                    Log.Write($"Positioned replica relative to target window: ({newLocation.X}, {newLocation.Y})");
+                }
+                catch (Exception ex) {
+                    Log.Write($"Warning: Could not position relative to target window, using absolute position: {ex.Message}");
+                    this.Location = config.WindowLocation;
+                }
+            }
+            else {
+                this.Location = config.WindowLocation;
+                Log.Write($"Using absolute position: ({config.WindowLocation.X}, {config.WindowLocation.Y})");
+            }
+
             this.Size = config.WindowSize;
             
             // Apply visual settings
@@ -499,10 +578,12 @@ namespace OnTopReplica {
                     // Create new MainForm window with default startup options
                     var newForm = new MainForm(StartupOptions.Factory.CreateOptions(new string[0]));
 
-                    // Set window position and size before showing
+                    // Set size before showing
                     newForm.StartPosition = FormStartPosition.Manual;
-                    newForm.Location = config.WindowLocation;
                     newForm.Size = config.WindowSize;
+
+                    // Temporarily position off-screen to avoid flickering
+                    newForm.Location = new Point(-10000, -10000);
 
                     // Apply the configuration after form is shown
                     newForm.Shown += (sender, e) => {
@@ -725,6 +806,36 @@ namespace OnTopReplica {
             // Window position and size
             config.WindowLocation = instance.Location;
             config.WindowSize = instance.Size;
+
+            // Calculate relative offset to target window (if available)
+            if (instance.CurrentThumbnailWindowHandle != null) {
+                try {
+                    var targetWindowRect = Native.WindowMethods.GetWindowRectangle(instance.CurrentThumbnailWindowHandle.Handle);
+                    var targetSize = new Size(targetWindowRect.Width, targetWindowRect.Height);
+
+                    // Absolute offset in pixels
+                    var offsetX = instance.Location.X - targetWindowRect.Left;
+                    var offsetY = instance.Location.Y - targetWindowRect.Top;
+
+                    config.RelativeOffsetToTargetWindow = new Point(offsetX, offsetY);
+                    config.TargetWindowSize = targetSize;
+
+                    // Relative offset as percentage of target window size
+                    if (targetSize.Width > 0 && targetSize.Height > 0) {
+                        config.RelativeOffsetPercent = new PointF(
+                            (float)offsetX / targetSize.Width,
+                            (float)offsetY / targetSize.Height
+                        );
+                        Log.Write($"Saved relative offset for instance: pixels({offsetX}, {offsetY}), percent({config.RelativeOffsetPercent.Value.X:P2}, {config.RelativeOffsetPercent.Value.Y:P2}), target size({targetSize.Width}x{targetSize.Height})");
+                    }
+                }
+                catch (Exception ex) {
+                    Log.Write($"Warning: Could not calculate relative offset for instance: {ex.Message}");
+                    config.RelativeOffsetToTargetWindow = null;
+                    config.RelativeOffsetPercent = null;
+                    config.TargetWindowSize = null;
+                }
+            }
 
             // Visual settings
             config.Opacity = instance.Opacity;
