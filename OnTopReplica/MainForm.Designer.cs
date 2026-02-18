@@ -161,8 +161,8 @@
             this.cloneWindowToolStripMenuItem.Enabled = false;
             this.cloneWindowToolStripMenuItem.Name = "cloneWindowToolStripMenuItem";
             this.cloneWindowToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.cloneWindowToolStripMenuItem.Text = "Fenster klonen...";
-            this.cloneWindowToolStripMenuItem.ToolTipText = "Öffnet ein neues Fenster mit dem gleichen Quell-Fenster";
+            this.cloneWindowToolStripMenuItem.Text = "Clone window";
+            this.cloneWindowToolStripMenuItem.ToolTipText = "Clone selected window";
             this.cloneWindowToolStripMenuItem.Click += new System.EventHandler(this.Menu_CloneWindow_click);
             // 
             // advancedToolStripMenuItem
@@ -438,48 +438,50 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
+            // saveAllInstancesToolStripMenuItem
+            // 
+            this.saveAllInstancesToolStripMenuItem.Name = "saveAllInstancesToolStripMenuItem";
+            this.saveAllInstancesToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.saveAllInstancesToolStripMenuItem.Text = "Save all replicas as profile...";
+            this.saveAllInstancesToolStripMenuItem.Click += new System.EventHandler(this.Menu_SaveAllInstances_click);
+            // 
             // saveProfileToolStripMenuItem
             // 
             this.saveProfileToolStripMenuItem.Name = "saveProfileToolStripMenuItem";
             this.saveProfileToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.saveProfileToolStripMenuItem.Text = "Profil speichern...";
+            this.saveProfileToolStripMenuItem.Text = "Save selected replica as profile...";
             this.saveProfileToolStripMenuItem.Click += new System.EventHandler(this.Menu_SaveProfile_click);
             // 
             // loadProfileToolStripMenuItem
             // 
             this.loadProfileToolStripMenuItem.Name = "loadProfileToolStripMenuItem";
             this.loadProfileToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.loadProfileToolStripMenuItem.Text = "Profil laden...";
+            this.loadProfileToolStripMenuItem.Text = "Load profile...";
             this.loadProfileToolStripMenuItem.Click += new System.EventHandler(this.Menu_LoadProfile_click);
             // 
             // addRegionToProfileToolStripMenuItem
             // 
             this.addRegionToProfileToolStripMenuItem.Name = "addRegionToProfileToolStripMenuItem";
             this.addRegionToProfileToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.addRegionToProfileToolStripMenuItem.Text = "Region zu Profil hinzufügen...";
+            this.addRegionToProfileToolStripMenuItem.Text = "Add region to existing profile...";
             this.addRegionToProfileToolStripMenuItem.Click += new System.EventHandler(this.Menu_AddRegionToProfile_click);
-            // 
-            // saveAllInstancesToolStripMenuItem
-            // 
-            this.saveAllInstancesToolStripMenuItem.Name = "saveAllInstancesToolStripMenuItem";
-            this.saveAllInstancesToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.saveAllInstancesToolStripMenuItem.Text = "Alle Fenster als Profil speichern...";
-            this.saveAllInstancesToolStripMenuItem.Click += new System.EventHandler(this.Menu_SaveAllInstances_click);
             // 
             // manageProfilesToolStripMenuItem
             // 
             this.manageProfilesToolStripMenuItem.Name = "manageProfilesToolStripMenuItem";
             this.manageProfilesToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.manageProfilesToolStripMenuItem.Text = "Profile verwalten...";
+            this.manageProfilesToolStripMenuItem.Text = "Edit profile...";
             this.manageProfilesToolStripMenuItem.Click += new System.EventHandler(this.Menu_ManageProfiles_click);
             // 
             // profilesToolStripMenuItem
             // 
             this.profilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveProfileToolStripMenuItem,
             this.loadProfileToolStripMenuItem,
-            this.addRegionToProfileToolStripMenuItem,
             this.saveAllInstancesToolStripMenuItem,
+            this.saveProfileToolStripMenuItem,
+            
+            this.addRegionToProfileToolStripMenuItem,
+            
             this.manageProfilesToolStripMenuItem});
             this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
             this.profilesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
