@@ -1,0 +1,206 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace OnTopReplica.Forms {
+    
+    public class ProfileNameDialog : Form {
+
+        private Label lblPrompt;
+        private TextBox txtProfileName;
+        private GroupBox grpAnchor;
+        private RadioButton rbTopLeft;
+        private RadioButton rbTopRight;
+        private RadioButton rbBottomLeft;
+        private RadioButton rbBottomRight;
+        private CheckBox chkScaleWithSource;
+        private Button btnOK;
+        private Button btnCancel;
+
+        public string ProfileName => txtProfileName.Text.Trim();
+
+        public RegionAnchor RegionAnchor {
+            get {
+                if (rbTopRight.Checked) return RegionAnchor.TopRight;
+                if (rbBottomLeft.Checked) return RegionAnchor.BottomLeft;
+                if (rbBottomRight.Checked) return RegionAnchor.BottomRight;
+                return RegionAnchor.TopLeft;
+            }
+        }
+
+        public bool ScaleWithSourceWindow => chkScaleWithSource.Checked;
+
+        public string PromptText {
+            get => lblPrompt.Text;
+            set => lblPrompt.Text = value;
+        }
+        
+        public ProfileNameDialog() {
+            InitializeComponent();
+        }
+        
+        private void InitializeComponent() {
+            this.lblPrompt = new System.Windows.Forms.Label();
+            this.txtProfileName = new System.Windows.Forms.TextBox();
+            this.grpAnchor = new System.Windows.Forms.GroupBox();
+            this.rbTopLeft = new System.Windows.Forms.RadioButton();
+            this.rbTopRight = new System.Windows.Forms.RadioButton();
+            this.rbBottomLeft = new System.Windows.Forms.RadioButton();
+            this.rbBottomRight = new System.Windows.Forms.RadioButton();
+            this.chkScaleWithSource = new System.Windows.Forms.CheckBox();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.grpAnchor.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // lblPrompt
+            // 
+            this.lblPrompt.AutoSize = true;
+            this.lblPrompt.Location = new System.Drawing.Point(12, 15);
+            this.lblPrompt.Name = "lblPrompt";
+            this.lblPrompt.Size = new System.Drawing.Size(78, 13);
+            this.lblPrompt.TabIndex = 4;
+            this.lblPrompt.Text = "Name of profile";
+            this.lblPrompt.Click += new System.EventHandler(this.lblPrompt_Click);
+            // 
+            // txtProfileName
+            // 
+            this.txtProfileName.Location = new System.Drawing.Point(12, 35);
+            this.txtProfileName.Name = "txtProfileName";
+            this.txtProfileName.Size = new System.Drawing.Size(360, 20);
+            this.txtProfileName.TabIndex = 0;
+            // 
+            // grpAnchor
+            // 
+            this.grpAnchor.Controls.Add(this.rbTopLeft);
+            this.grpAnchor.Controls.Add(this.rbTopRight);
+            this.grpAnchor.Controls.Add(this.rbBottomLeft);
+            this.grpAnchor.Controls.Add(this.rbBottomRight);
+            this.grpAnchor.Location = new System.Drawing.Point(12, 65);
+            this.grpAnchor.Name = "grpAnchor";
+            this.grpAnchor.Size = new System.Drawing.Size(360, 90);
+            this.grpAnchor.TabIndex = 1;
+            this.grpAnchor.TabStop = false;
+            this.grpAnchor.Text = "Anchor-position";
+            this.grpAnchor.Enter += new System.EventHandler(this.grpAnchor_Enter);
+            // 
+            // rbTopLeft
+            // 
+            this.rbTopLeft.AutoSize = true;
+            this.rbTopLeft.Checked = true;
+            this.rbTopLeft.Location = new System.Drawing.Point(15, 25);
+            this.rbTopLeft.Name = "rbTopLeft";
+            this.rbTopLeft.Size = new System.Drawing.Size(79, 17);
+            this.rbTopLeft.TabIndex = 0;
+            this.rbTopLeft.TabStop = true;
+            this.rbTopLeft.Text = "Oben Links";
+            this.rbTopLeft.UseVisualStyleBackColor = true;
+            // 
+            // rbTopRight
+            // 
+            this.rbTopRight.AutoSize = true;
+            this.rbTopRight.Location = new System.Drawing.Point(185, 25);
+            this.rbTopRight.Name = "rbTopRight";
+            this.rbTopRight.Size = new System.Drawing.Size(88, 17);
+            this.rbTopRight.TabIndex = 1;
+            this.rbTopRight.Text = "Oben Rechts";
+            this.rbTopRight.UseVisualStyleBackColor = true;
+            // 
+            // rbBottomLeft
+            // 
+            this.rbBottomLeft.AutoSize = true;
+            this.rbBottomLeft.Location = new System.Drawing.Point(15, 55);
+            this.rbBottomLeft.Name = "rbBottomLeft";
+            this.rbBottomLeft.Size = new System.Drawing.Size(82, 17);
+            this.rbBottomLeft.TabIndex = 2;
+            this.rbBottomLeft.Text = "Unten Links";
+            this.rbBottomLeft.UseVisualStyleBackColor = true;
+            // 
+            // rbBottomRight
+            // 
+            this.rbBottomRight.AutoSize = true;
+            this.rbBottomRight.Location = new System.Drawing.Point(185, 55);
+            this.rbBottomRight.Name = "rbBottomRight";
+            this.rbBottomRight.Size = new System.Drawing.Size(91, 17);
+            this.rbBottomRight.TabIndex = 3;
+            this.rbBottomRight.Text = "Unten Rechts";
+            this.rbBottomRight.UseVisualStyleBackColor = true;
+            // 
+            // chkScaleWithSource
+            // 
+            this.chkScaleWithSource.AutoSize = true;
+            this.chkScaleWithSource.Location = new System.Drawing.Point(12, 165);
+            this.chkScaleWithSource.Name = "chkScaleWithSource";
+            this.chkScaleWithSource.Size = new System.Drawing.Size(264, 17);
+            this.chkScaleWithSource.TabIndex = 2;
+            this.chkScaleWithSource.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+            this.chkScaleWithSource.UseVisualStyleBackColor = true;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(216, 195);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 3;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(297, 195);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // ProfileNameDialog
+            // 
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(384, 230);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.chkScaleWithSource);
+            this.Controls.Add(this.grpAnchor);
+            this.Controls.Add(this.txtProfileName);
+            this.Controls.Add(this.lblPrompt);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "ProfileNameDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Profile";
+            this.grpAnchor.ResumeLayout(false);
+            this.grpAnchor.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+        
+        private void BtnOK_Click(object sender, EventArgs e) {
+            if (string.IsNullOrWhiteSpace(txtProfileName.Text)) {
+                MessageBox.Show(
+                    "Bitte geben Sie einen Profilnamen ein.",
+                    "Eingabe erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtProfileName.Focus();
+                return;
+            }
+            
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void lblPrompt_Click(object sender, EventArgs e) {
+
+        }
+
+        private void grpAnchor_Enter(object sender, EventArgs e) {
+
+        }
+    }
+}

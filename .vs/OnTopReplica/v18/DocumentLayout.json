@@ -1,0 +1,535 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|b:\\visual studio projekte\\repos\\ontopreplicafork\\src\\ontopreplica\\forms\\addregiontoprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\addregiontoprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\addregiontoexistingprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\addregiontoexistingprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\addregiontoexistingprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\addregiontoexistingprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profilenamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profilenamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\hotkeytextbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\hotkeytextbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profileselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profileselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profileselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profileselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profileregionselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profileregionselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profilenamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profilenamedialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_childforms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_childforms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\aspectratioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\aspectratioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\sidepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\sidepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_menuevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_menuevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_gui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_gui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_features.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_features.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\addregiontoprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\addregiontoprofiledialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profilemanagerdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profilemanagerdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profileregionselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profileregionselectiondialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\profilemanagerdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\profilemanagerdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\profileregionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\profileregionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\profilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\profilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\mainform_menuevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\mainform_menuevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\native\\windowmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\native\\windowmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\screenposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\screenposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\adams\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-964919256\\SaveAllInstancesDialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\ontopreplica\\forms\\saveallinstancesdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E626BD6E-BF38-4EB7-A128-5CA6F40EF557}|OnTopReplica\\OnTopReplica.csproj|solutionrelative:ontopreplica\\forms\\saveallinstancesdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 15,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AddRegionToExistingProfileDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAawOIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T15:52:50.338Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SaveAllInstancesDialog.cs",
+              "DocumentMoniker": "C:\\Users\\adams\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-964919256\\SaveAllInstancesDialog.cs",
+              "ToolTip": "C:\\Users\\adams\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-964919256\\SaveAllInstancesDialog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:50:51.349Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProfileNameDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:04:59.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HotKeyTextBox.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\HotKeyTextBox.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\HotKeyTextBox.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\HotKeyTextBox.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\HotKeyTextBox.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:16.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProfileSelectionDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileSelectionDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileSelectionDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:15:45.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProfileSelectionDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileSelectionDialog.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAawHYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:55.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProfileRegionSelectionDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:16:19.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ProfileNameDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileNameDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileNameDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileNameDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:17:50.951Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainForm_ChildForms.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_ChildForms.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_ChildForms.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_ChildForms.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\MainForm_ChildForms.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:21.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MainForm_Features.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Features.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_Features.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Features.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\MainForm_Features.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:24.437Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddRegionToProfileDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAKMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T13:46:09.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SaveAllInstancesDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\SaveAllInstancesDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\SaveAllInstancesDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\SaveAllInstancesDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\SaveAllInstancesDialog.cs",
+              "ViewState": "AgIAAAkBAAAAAAAAAABQwDgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:51:58.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddRegionToExistingProfileDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\AddRegionToExistingProfileDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:20:47.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MainForm_Gui.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Gui.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_Gui.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Gui.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\MainForm_Gui.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:23.609Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "MainForm_MenuEvents.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_MenuEvents.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_MenuEvents.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_MenuEvents.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\MainForm_MenuEvents.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:27.12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SidePanel.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\SidePanel.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\SidePanel.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\SidePanel.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\SidePanel.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:33.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AspectRatioForm.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\AspectRatioForm.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\AspectRatioForm.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\AspectRatioForm.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\AspectRatioForm.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T13:28:38.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AddRegionToProfileDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\AddRegionToProfileDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\AddRegionToProfileDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\AddRegionToProfileDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T15:46:56.34Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MainForm.Designer.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.Designer.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm.Designer.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.Designer.cs",
+              "RelativeToolTip": "OnTopReplica\\MainForm.Designer.cs",
+              "ViewState": "AgIAAMwBAAAAAAAAAAAqwN0BAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:05:59.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ProfileManagerDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "ViewState": "AgIAAGsBAAAAAAAAAAAawPcBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:05:42.342Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MainForm_Profiles.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Profiles.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_Profiles.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_Profiles.cs",
+              "RelativeToolTip": "OnTopReplica\\MainForm_Profiles.cs",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAawOQCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T13:48:07.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.cs",
+              "RelativeToolTip": "OnTopReplica\\MainForm.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwDsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T14:02:07.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MainForm.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\MainForm.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:30:31.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ProfileRegionSelectionDialog.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileRegionSelectionDialog.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAawI8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T13:46:33.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ProfileManagerDialog.cs [Entwurf]",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Forms\\ProfileManagerDialog.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Forms\\ProfileManagerDialog.cs [Entwurf]",
+              "RelativeToolTip": "OnTopReplica\\Forms\\ProfileManagerDialog.cs [Entwurf]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T15:46:59.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ProfileRegionConfiguration.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ProfileRegionConfiguration.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\ProfileRegionConfiguration.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ProfileRegionConfiguration.cs",
+              "RelativeToolTip": "OnTopReplica\\ProfileRegionConfiguration.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAwDwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T13:45:30.611Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ScreenPosition.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ScreenPosition.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\ScreenPosition.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ScreenPosition.cs",
+              "RelativeToolTip": "OnTopReplica\\ScreenPosition.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:07:46.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "WindowMethods.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Native\\WindowMethods.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Native\\WindowMethods.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Native\\WindowMethods.cs",
+              "RelativeToolTip": "OnTopReplica\\Native\\WindowMethods.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:06:48.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "MainForm_MenuEvents.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_MenuEvents.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\MainForm_MenuEvents.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\MainForm_MenuEvents.cs",
+              "RelativeToolTip": "OnTopReplica\\MainForm_MenuEvents.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:06:37.316Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ProfileManager.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ProfileManager.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\ProfileManager.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\ProfileManager.cs",
+              "RelativeToolTip": "OnTopReplica\\ProfileManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:04:00.848Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Profile.cs",
+              "DocumentMoniker": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Profile.cs",
+              "RelativeDocumentMoniker": "OnTopReplica\\Profile.cs",
+              "ToolTip": "B:\\Visual Studio Projekte\\repos\\OnTopReplicaFork\\src\\OnTopReplica\\Profile.cs",
+              "RelativeToolTip": "OnTopReplica\\Profile.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAIBJwJYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T12:03:45.668Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

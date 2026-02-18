@@ -1,0 +1,65 @@
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace OnTopReplica {
+    
+    /// <summary>
+    /// Represents a saved profile with all window settings.
+    /// </summary>
+    [Serializable]
+    public class Profile {
+        
+        public string Name { get; set; }
+        
+        public string ProcessName { get; set; }
+        
+        public string WindowTitle { get; set; }
+        
+        public string WindowClass { get; set; }
+        
+        public long? WindowHandle { get; set; }
+        
+        public bool HasRegion { get; set; }
+        
+        public Rectangle RegionBounds { get; set; }
+        
+        public bool RegionIsRelative { get; set; }
+        
+        public Point WindowLocation { get; set; }
+        
+        public Size WindowSize { get; set; }
+        
+        public double Opacity { get; set; }
+        
+        public bool ClickThrough { get; set; }
+        
+        public bool ClickForwarding { get; set; }
+        
+        public bool ChromeVisible { get; set; }
+        
+        public ScreenPosition? PositionLock { get; set; }
+        
+        public bool TopMost { get; set; }
+        
+        public DateTime CreatedDate { get; set; }
+        
+        public DateTime LastModified { get; set; }
+        
+        public Profile() {
+            CreatedDate = DateTime.Now;
+            LastModified = DateTime.Now;
+            Opacity = 1.0;
+            ChromeVisible = true;
+            TopMost = true;
+        }
+        
+        public Profile(string name) : this() {
+            Name = name;
+        }
+        
+        public override string ToString() {
+            return Name ?? "Unnamed Profile";
+        }
+    }
+}

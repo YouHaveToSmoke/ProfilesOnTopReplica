@@ -1,0 +1,315 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace OnTopReplica.Forms {
+
+    /// <summary>
+    /// Dialog for saving all open OnTopReplica instances as a profile.
+    /// </summary>
+    public class SaveAllInstancesDialog : Form {
+
+        private Label lblInfo;
+        private Label lblProfileName;
+        private TextBox txtProfileName;
+        private Panel pnlInstances;
+        private Button btnOK;
+        private Button btnCancel;
+
+        public class InstanceConfiguration {
+            internal MainForm Instance { get; set; }
+            public string RegionName { get; set; }
+            public RegionAnchor RegionAnchor { get; set; }
+            public bool ScaleWithSourceWindow { get; set; }
+            internal TextBox NameTextBox { get; set; }
+            internal ComboBox AnchorComboBox { get; set; }
+            internal CheckBox ScaleCheckBox { get; set; }
+        }
+
+        private List<InstanceConfiguration> _configurations = new List<InstanceConfiguration>();
+
+        public string ProfileName => txtProfileName.Text.Trim();
+
+        public IReadOnlyList<InstanceConfiguration> InstanceConfigurations => _configurations.AsReadOnly();
+
+        internal SaveAllInstancesDialog(IEnumerable<MainForm> instances) {
+            InitializeComponent(instances);
+        }
+        
+        private void InitializeComponent(IEnumerable<MainForm> instances) {
+            this.lblInfo = new Label();
+            this.lblProfileName = new Label();
+            this.txtProfileName = new TextBox();
+            this.pnlInstances = new Panel();
+            this.btnOK = new Button();
+            this.btnCancel = new Button();
+            
+            this.SuspendLayout();
+            
+            // lblInfo
+            this.lblInfo.AutoSize = false;
+            this.lblInfo.Location = new Point(12, 12);
+            this.lblInfo.Size = new Size(560, 40);
+            this.lblInfo.Text = "Sie können alle aktuell geöffneten OnTopReplica-Fenster in einem Profil speichern.\n" +
+                               "Benennen Sie jede Region und wählen Sie die Verankerung (Anchor).";
+            
+            // lblProfileName
+            this.lblProfileName.AutoSize = true;
+            this.lblProfileName.Location = new Point(12, 60);
+            this.lblProfileName.Text = "Profilname:";
+            
+            // txtProfileName
+            this.txtProfileName.Location = new Point(12, 80);
+            this.txtProfileName.Size = new Size(560, 20);
+            this.txtProfileName.TabIndex = 0;
+            
+            // pnlInstances
+            this.pnlInstances.Location = new Point(12, 110);
+            this.pnlInstances.Size = new Size(560, 300);
+            this.pnlInstances.BorderStyle = BorderStyle.FixedSingle;
+            this.pnlInstances.AutoScroll = true;
+            
+            // Populate instances
+            int yPos = 10;
+            int instanceNumber = 1;
+            foreach (var instance in instances) {
+                var config = new InstanceConfiguration {
+                    Instance = instance,
+                    RegionName = $"Region {instanceNumber}"
+                };
+
+                // Create group box for this instance
+                var groupBox = new GroupBox();
+                groupBox.Location = new Point(10, yPos);
+                groupBox.Size = new Size(520, 160);
+                groupBox.Text = GetInstanceDescription(instance, instanceNumber);
+                groupBox.ForeColor = Color.DarkBlue;
+                groupBox.Font = new Font(groupBox.Font, FontStyle.Bold);
+
+                // Info label with window details
+                var lblInfo = new Label();
+                lblInfo.AutoSize = false;
+                lblInfo.Location = new Point(10, 20);
+                lblInfo.Size = new Size(390, 30);
+                lblInfo.Text = GetInstanceDetails(instance);
+                lblInfo.ForeColor = Color.DarkGray;
+                lblInfo.Font = new Font(this.Font.FontFamily, 7.5f);
+                groupBox.Controls.Add(lblInfo);
+
+                // Button to highlight/focus the window
+                var btnFocus = new Button();
+                btnFocus.Location = new Point(410, 20);
+                btnFocus.Size = new Size(90, 25);
+                btnFocus.Text = "Fokussieren";
+                btnFocus.TabIndex = instanceNumber * 4 - 3;
+                btnFocus.Click += (s, ev) => FocusInstance(instance);
+                groupBox.Controls.Add(btnFocus);
+
+                // Region name label
+                var lblName = new Label();
+                lblName.AutoSize = true;
+                lblName.Location = new Point(10, 55);
+                lblName.Text = "Region-Name:";
+                lblName.Font = this.Font;
+                groupBox.Controls.Add(lblName);
+
+                // Region name textbox
+                var txtName = new TextBox();
+                txtName.Location = new Point(110, 52);
+                txtName.Size = new Size(390, 20);
+                txtName.Text = config.RegionName;
+                txtName.TabIndex = instanceNumber * 4 - 2;
+                config.NameTextBox = txtName;
+                groupBox.Controls.Add(txtName);
+
+                // Anchor label
+                var lblAnchor = new Label();
+                lblAnchor.AutoSize = true;
+                lblAnchor.Location = new Point(10, 85);
+                lblAnchor.Text = "Region-Anker:";
+                lblAnchor.Font = this.Font;
+                groupBox.Controls.Add(lblAnchor);
+
+                // Anchor combobox
+                var cmbAnchor = new ComboBox();
+                cmbAnchor.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmbAnchor.Location = new Point(110, 82);
+                cmbAnchor.Size = new Size(150, 21);
+                cmbAnchor.TabIndex = instanceNumber * 4 - 1;
+                cmbAnchor.Font = this.Font;
+                cmbAnchor.Items.AddRange(new object[] { "Oben Links", "Oben Rechts", "Unten Links", "Unten Rechts" });
+                cmbAnchor.SelectedIndex = 0;
+                config.AnchorComboBox = cmbAnchor;
+                groupBox.Controls.Add(cmbAnchor);
+
+                // Scale checkbox
+                var chkScale = new CheckBox();
+                chkScale.Location = new Point(10, 110);
+                chkScale.Size = new Size(490, 30);
+                chkScale.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+                chkScale.TabIndex = instanceNumber * 4;
+                chkScale.Font = this.Font;
+                chkScale.Checked = false;
+                config.ScaleCheckBox = chkScale;
+                groupBox.Controls.Add(chkScale);
+
+                pnlInstances.Controls.Add(groupBox);
+                _configurations.Add(config);
+
+                yPos += 170;
+                instanceNumber++;
+            }
+            
+            // btnOK
+            this.btnOK.Location = new Point(416, 420);
+            this.btnOK.Size = new Size(75, 23);
+            this.btnOK.TabIndex = 1000;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += BtnOK_Click;
+            
+            // btnCancel
+            this.btnCancel.DialogResult = DialogResult.Cancel;
+            this.btnCancel.Location = new Point(497, 420);
+            this.btnCancel.Size = new Size(75, 23);
+            this.btnCancel.TabIndex = 1001;
+            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            
+            // SaveAllInstancesDialog
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new Size(584, 455);
+            this.Controls.Add(this.lblInfo);
+            this.Controls.Add(this.lblProfileName);
+            this.Controls.Add(this.txtProfileName);
+            this.Controls.Add(this.pnlInstances);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Text = "Alle Fenster als Profil speichern";
+            
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+        
+        private string GetInstanceDescription(MainForm instance, int number) {
+            string windowTitle = "Kein Fenster";
+
+            if (instance.CurrentThumbnailWindowHandle != null) {
+                windowTitle = instance.CurrentThumbnailWindowHandle.Title;
+                if (string.IsNullOrWhiteSpace(windowTitle)) {
+                    windowTitle = instance.CurrentThumbnailWindowHandle.Class;
+                }
+                if (windowTitle.Length > 40) {
+                    windowTitle = windowTitle.Substring(0, 37) + "...";
+                }
+            }
+
+            return $"Fenster {number}: {windowTitle}";
+        }
+
+        private string GetInstanceDetails(MainForm instance) {
+            var details = new System.Text.StringBuilder();
+
+            // Position and size
+            details.AppendLine($"Position: X={instance.Location.X}, Y={instance.Location.Y}  |  Größe: {instance.Size.Width}x{instance.Size.Height}");
+
+            // Region info if any
+            if (instance.SelectedThumbnailRegion != null) {
+                var region = instance.SelectedThumbnailRegion;
+                details.Append($"Region: {region.Bounds.Width}x{region.Bounds.Height} ");
+                details.Append(region.Relative ? "(Relativ)" : "(Absolut)");
+            } else {
+                details.Append("Vollständiges Fenster (keine Region)");
+            }
+
+            return details.ToString();
+        }
+
+        private void FocusInstance(MainForm instance) {
+            try {
+                // Bring the window to front and flash it
+                if (instance != null && !instance.IsDisposed) {
+                    // Store original state
+                    var originalOpacity = instance.Opacity;
+                    var originalTopMost = instance.TopMost;
+
+                    // Flash effect: make it more visible temporarily
+                    instance.TopMost = true;
+                    instance.BringToFront();
+                    instance.Activate();
+
+                    // Flash by changing opacity
+                    var timer = new System.Windows.Forms.Timer();
+                    int flashCount = 0;
+                    timer.Interval = 150;
+                    timer.Tick += (s, e) => {
+                        flashCount++;
+                        if (flashCount <= 6) {
+                            instance.Opacity = (flashCount % 2 == 0) ? originalOpacity : Math.Max(0.3, originalOpacity - 0.4);
+                        } else {
+                            instance.Opacity = originalOpacity;
+                            instance.TopMost = originalTopMost;
+                            timer.Stop();
+                            timer.Dispose();
+                        }
+                    };
+                    timer.Start();
+                }
+            }
+            catch {
+                // Ignore errors if window is closed
+            }
+        }
+        
+        private void BtnOK_Click(object sender, EventArgs e) {
+            // Validate profile name
+            if (string.IsNullOrWhiteSpace(txtProfileName.Text)) {
+                MessageBox.Show(
+                    "Bitte geben Sie einen Profilnamen ein.",
+                    "Eingabe erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtProfileName.Focus();
+                return;
+            }
+            
+            // Update configurations with user input
+            foreach (var config in _configurations) {
+                config.RegionName = config.NameTextBox.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(config.RegionName)) {
+                    MessageBox.Show(
+                        "Bitte geben Sie für jede Region einen Namen ein.",
+                        "Eingabe erforderlich",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    config.NameTextBox.Focus();
+                    return;
+                }
+
+                // Map ComboBox selection to RegionAnchor
+                switch (config.AnchorComboBox.SelectedIndex) {
+                    case 0: config.RegionAnchor = RegionAnchor.TopLeft; break;
+                    case 1: config.RegionAnchor = RegionAnchor.TopRight; break;
+                    case 2: config.RegionAnchor = RegionAnchor.BottomLeft; break;
+                    case 3: config.RegionAnchor = RegionAnchor.BottomRight; break;
+                    default: config.RegionAnchor = RegionAnchor.TopLeft; break;
+                }
+
+                config.ScaleWithSourceWindow = config.ScaleCheckBox.Checked;
+            }
+            
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+    }
+}

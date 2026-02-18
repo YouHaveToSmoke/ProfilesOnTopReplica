@@ -1,0 +1,515 @@
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using OnTopReplica.WindowSeekers;
+
+namespace OnTopReplica {
+    
+    /// <summary>
+    /// Contains profile-related functionality of MainForm.
+    /// </summary>
+    partial class MainForm {
+        
+        /// <summary>
+        /// Creates a profile region configuration from the current window state.
+        /// </summary>
+        private ProfileRegionConfiguration CreateRegionConfigurationFromCurrentState(string configName, RegionAnchor regionAnchor, bool scaleWithSource) {
+            var config = new ProfileRegionConfiguration(configName);
+            config.ScaleWithSourceWindow = scaleWithSource;
+
+            // Region settings
+            if (SelectedThumbnailRegion != null) {
+                config.HasRegion = true;
+                config.RegionIsRelative = SelectedThumbnailRegion.Relative;
+                config.RegionAnchor = regionAnchor;
+
+                var originalWindowSize = Size.Empty;
+                if (_thumbnailPanel.IsShowingThumbnail) {
+                    originalWindowSize = _thumbnailPanel.ThumbnailOriginalSize;
+                }
+
+                // Get the internal bounds based on the mode
+                if (SelectedThumbnailRegion.Relative) {
+                    // In relative mode, store as padding (Left, Top, Right, Bottom)
+                    var padding = SelectedThumbnailRegion.BoundsAsPadding;
+                    config.RegionBounds = new Rectangle(
+                        padding.Left,
+                        padding.Top,
+                        padding.Right,
+                        padding.Bottom
+                    );
+                }
+                else {
+                    // In absolute mode, store absolute pixel distance from anchor
+                    var bounds = SelectedThumbnailRegion.Bounds;
+
+                    // Store absolute bounds
+                    config.RegionBounds = bounds;
+
+                    // Calculate absolute pixel distance from the selected anchor
+                    int distX, distY;
+
+                    switch (regionAnchor) {
+                        case RegionAnchor.TopLeft:
+                            distX = bounds.X;
+                            distY = bounds.Y;
+                            break;
+
+                        case RegionAnchor.TopRight:
+                            distX = originalWindowSize.Width - bounds.Right;
+                            distY = bounds.Y;
+                            break;
+
+                        case RegionAnchor.BottomLeft:
+                            distX = bounds.X;
+                            distY = originalWindowSize.Height - bounds.Bottom;
+                            break;
+
+                        case RegionAnchor.BottomRight:
+                            distX = originalWindowSize.Width - bounds.Right;
+                            distY = originalWindowSize.Height - bounds.Bottom;
+                            break;
+
+                        default:
+                            distX = bounds.X;
+                            distY = bounds.Y;
+                            break;
+                    }
+
+                    config.AbsoluteDistanceFromAnchor = new Point(distX, distY);
+
+                    Log.Write($"Saved region with {regionAnchor} anchor: distance({distX}px, {distY}px), size({bounds.Width}px, {bounds.Height}px)");
+                }
+            }
+            else {
+                config.HasRegion = false;
+            }
+
+            // Window position and size
+            config.WindowLocation = this.Location;
+            config.WindowSize = this.Size;
+
+            // Visual settings
+            config.Opacity = this.Opacity;
+            config.ClickThrough = this.ClickThroughEnabled;
+            config.ClickForwarding = this.ClickForwardingEnabled;
+            config.ChromeVisible = this.IsChromeVisible;
+            config.PositionLock = this.PositionLock;
+            config.TopMost = this.TopMost;
+
+            return config;
+        }
+        
+        /// <summary>
+        /// Creates a profile from the current window state.
+        /// </summary>
+        public Profile CreateProfileFromCurrentState(string profileName, string regionName, RegionAnchor regionAnchor, bool scaleWithSource) {
+            var profile = new Profile(profileName);
+
+            // Window information
+            if (CurrentThumbnailWindowHandle != null) {
+                profile.WindowHandle = (long)CurrentThumbnailWindowHandle.Handle;
+                profile.WindowTitle = CurrentThumbnailWindowHandle.Title;
+                profile.WindowClass = CurrentThumbnailWindowHandle.Class;
+
+                // Store original window size for region transformation
+                if (_thumbnailPanel.IsShowingThumbnail) {
+                    profile.OriginalWindowSize = _thumbnailPanel.ThumbnailOriginalSize;
+                }
+
+                // Try to get process name
+                try {
+                    var process = Process.GetProcessById(
+                        Native.WindowMethods.GetWindowProcessId(CurrentThumbnailWindowHandle.Handle));
+                    profile.ProcessName = process.ProcessName;
+                }
+                catch {
+                    profile.ProcessName = null;
+                }
+            }
+
+            // Create and add the region configuration
+            var config = CreateRegionConfigurationFromCurrentState(regionName, regionAnchor, scaleWithSource);
+            profile.RegionConfigurations.Add(config);
+
+            return profile;
+        }
+        
+        /// <summary>
+        /// Adds a new region configuration to an existing profile.
+        /// </summary>
+        public void AddRegionToProfile(Profile profile, string regionName, RegionAnchor regionAnchor, bool scaleWithSource) {
+            if (profile == null) {
+                throw new ArgumentNullException(nameof(profile));
+            }
+
+            // Update profile metadata
+            profile.LastModified = DateTime.Now;
+
+            // Store original window size if not already set
+            if (profile.OriginalWindowSize == Size.Empty && _thumbnailPanel.IsShowingThumbnail) {
+                profile.OriginalWindowSize = _thumbnailPanel.ThumbnailOriginalSize;
+            }
+
+            // Create and add the new configuration
+            var config = CreateRegionConfigurationFromCurrentState(regionName, regionAnchor, scaleWithSource);
+            profile.RegionConfigurations.Add(config);
+
+            // Save the updated profile
+            ProfileManager.SaveProfile(profile);
+        }
+        
+        /// <summary>
+        /// Applies a profile configuration to the current window.
+        /// </summary>
+        public void ApplyProfileConfiguration(Profile profile, ProfileRegionConfiguration config) {
+            if (profile == null) {
+                throw new ArgumentNullException(nameof(profile));
+            }
+            if (config == null) {
+                throw new ArgumentNullException(nameof(config));
+            }
+            
+            Log.Write($"Applying profile configuration: {profile.Name} - {config.Name}");
+            
+            // First, try to find and set the window
+            WindowHandle handle = FindWindowForProfile(profile);
+            
+            if (handle == null) {
+                Log.Write("Warning: Could not find window for profile " + profile.Name);
+                MessageBox.Show(
+                    $"Das Fenster für Profil '{profile.Name}' konnte nicht gefunden werden.\n\n" +
+                    $"Prozess: {profile.ProcessName ?? "N/A"}\n" +
+                    $"Klasse: {profile.WindowClass ?? "N/A"}\n" +
+                    $"Titel: {profile.WindowTitle ?? "N/A"}",
+                    "Fenster nicht gefunden",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
+            // Apply region if specified
+            ThumbnailRegion region = null;
+            if (config.HasRegion) {
+                var bounds = config.RegionBounds;
+                
+                // Transform coordinates based on anchor if needed
+                if (!config.RegionIsRelative && config.RegionAnchor == RegionAnchor.BottomRight) {
+                    // Region was stored as bottom-right anchored
+                    var currentWindowSize = Native.WindowMethods.GetWindowSize(handle.Handle);
+                    
+                    if (currentWindowSize != Size.Empty && profile.OriginalWindowSize != Size.Empty) {
+                        // Transform from bottom-right anchored to top-left coordinates
+                        var newX = currentWindowSize.Width - bounds.X - bounds.Width;
+                        var newY = currentWindowSize.Height - bounds.Y - bounds.Height;
+                        
+                        // Ensure coordinates are within bounds
+                        newX = Math.Max(0, Math.Min(newX, currentWindowSize.Width - bounds.Width));
+                        newY = Math.Max(0, Math.Min(newY, currentWindowSize.Height - bounds.Height));
+                        
+                        bounds = new Rectangle(newX, newY, bounds.Width, bounds.Height);
+                    }
+                }
+                
+                region = new ThumbnailRegion(bounds, config.RegionIsRelative);
+            }
+            
+            // Set the thumbnail
+            SetThumbnail(handle, region);
+            
+            // Apply window position and size
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = config.WindowLocation;
+            this.Size = config.WindowSize;
+            
+            // Apply visual settings
+            this.Opacity = config.Opacity;
+            this.ClickThroughEnabled = config.ClickThrough;
+            this.ClickForwardingEnabled = config.ClickForwarding;
+            this.IsChromeVisible = config.ChromeVisible;
+            this.PositionLock = config.PositionLock;
+            this.TopMost = config.TopMost;
+            
+            Log.Write("Profile configuration applied successfully: " + config.Name);
+        }
+        
+        /// <summary>
+        /// Finds the window handle for a given profile.
+        /// </summary>
+        private WindowHandle FindWindowForProfile(Profile profile) {
+            WindowHandle handle = null;
+            
+            // Try by process name first (most reliable across restarts)
+            if (!string.IsNullOrEmpty(profile.ProcessName)) {
+                var processes = Process.GetProcessesByName(profile.ProcessName);
+                if (processes.Length > 0) {
+                    foreach (var proc in processes) {
+                        if (proc.MainWindowHandle != IntPtr.Zero) {
+                            handle = new WindowHandle(proc.MainWindowHandle);
+                            
+                            if (!string.IsNullOrEmpty(profile.WindowClass) && 
+                                handle.Class != profile.WindowClass) {
+                                continue;
+                            }
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Try by window class if process name didn't work
+            if (handle == null && !string.IsNullOrEmpty(profile.WindowClass)) {
+                var seeker = new ByClassWindowSeeker(profile.WindowClass) {
+                    OwnerHandle = this.Handle,
+                    SkipNotVisibleWindows = true
+                };
+                seeker.Refresh();
+                handle = seeker.Windows.FirstOrDefault();
+            }
+            
+            // Try by window title if we still don't have a match
+            if (handle == null && !string.IsNullOrEmpty(profile.WindowTitle)) {
+                var seeker = new ByTitleWindowSeeker(profile.WindowTitle) {
+                    OwnerHandle = this.Handle,
+                    SkipNotVisibleWindows = true
+                };
+                seeker.Refresh();
+                handle = seeker.Windows.FirstOrDefault();
+            }
+            
+            return handle;
+        }
+        
+        /// <summary>
+        /// Shows a dialog to save the current state as a profile.
+        /// </summary>
+        public void ShowSaveProfileDialog() {
+            using (var dialog = new Forms.ProfileNameDialog()) {
+                dialog.Text = "Profil speichern";
+                dialog.PromptText = "Geben Sie einen Namen für das Profil ein:";
+                
+                if (dialog.ShowDialog(this) == DialogResult.OK) {
+                    var profileName = dialog.ProfileName;
+                    var regionAnchor = dialog.RegionAnchor;
+                    
+                    if (ProfileManager.ProfileExists(profileName)) {
+                        var result = MessageBox.Show(
+                            $"Ein Profil mit dem Namen '{profileName}' existiert bereits.\nMöchten Sie eine neue Region zu diesem Profil hinzufügen?",
+                            "Profil existiert bereits",
+                            MessageBoxButtons.YesNoCancel,
+                            MessageBoxIcon.Question
+                        );
+                        
+                        if (result == DialogResult.Cancel) {
+                            return;
+                        }
+                        else if (result == DialogResult.Yes) {
+                            // Add to existing profile
+                            try {
+                                var existingProfile = ProfileManager.LoadProfile(profileName);
+                                
+                                using (var regionDialog = new Forms.AddRegionToProfileDialog()) {
+                                    if (regionDialog.ShowDialog(this) == DialogResult.OK) {
+                                        AddRegionToProfile(existingProfile, regionDialog.RegionName, regionDialog.RegionAnchor);
+                                        MessageBox.Show(
+                                            $"Region '{regionDialog.RegionName}' wurde erfolgreich zum Profil '{profileName}' hinzugefügt.",
+                                            "Region hinzugefügt",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information
+                                        );
+                                    }
+                                }
+                            }
+                            catch (Exception ex) {
+                                MessageBox.Show(
+                                    $"Fehler beim Hinzufügen der Region:\n{ex.Message}",
+                                    "Fehler",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                Log.WriteException("Error adding region to profile", ex);
+                            }
+                            return;
+                        }
+                        // If No, continue to overwrite
+                    }
+                    
+                    // Create new profile or overwrite
+                    try {
+                        using (var regionDialog = new Forms.AddRegionToProfileDialog()) {
+                            if (regionDialog.ShowDialog(this) == DialogResult.OK) {
+                                var profile = CreateProfileFromCurrentState(profileName, regionDialog.RegionName, regionDialog.RegionAnchor);
+                                ProfileManager.SaveProfile(profile);
+                                
+                                MessageBox.Show(
+                                    $"Profil '{profileName}' wurde erfolgreich gespeichert.",
+                                    "Profil gespeichert",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information
+                                );
+                            }
+                        }
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(
+                            $"Fehler beim Speichern des Profils:\n{ex.Message}",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        Log.WriteException("Error saving profile", ex);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Shows a dialog to load a profile.
+        /// </summary>
+        public void ShowLoadProfileDialog() {
+            using (var dialog = new Forms.ProfileSelectionDialog()) {
+                if (dialog.ShowDialog(this) == DialogResult.OK) {
+                    try {
+                        var profile = ProfileManager.LoadProfile(dialog.SelectedProfileName);
+                        
+                        // Convert legacy format if needed
+                        if (profile.IsLegacyFormat()) {
+                            profile.ConvertFromLegacy();
+                            ProfileManager.SaveProfile(profile);
+                        }
+                        
+                        if (profile.RegionConfigurations.Count == 0) {
+                            MessageBox.Show(
+                                "Dieses Profil enthält keine Regionen.",
+                                "Keine Regionen",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            return;
+                        }
+                        
+                        if (profile.RegionConfigurations.Count == 1) {
+                            // Only one configuration, apply directly
+                            ApplyProfileConfiguration(profile, profile.RegionConfigurations[0]);
+                        }
+                        else {
+                            // Multiple configurations, show selection dialog
+                            using (var regionDialog = new Forms.ProfileRegionSelectionDialog(profile)) {
+                                if (regionDialog.ShowDialog(this) == DialogResult.OK) {
+                                    if (regionDialog.LoadAll) {
+                                        // Load all configurations (start new instances)
+                                        LoadAllProfileConfigurations(profile);
+                                    }
+                                    else {
+                                        // Load selected configuration
+                                        ApplyProfileConfiguration(profile, regionDialog.SelectedConfiguration);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(
+                            $"Fehler beim Laden des Profils:\n{ex.Message}",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        Log.WriteException("Error loading profile", ex);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Loads all configurations from a profile by opening new MainForm windows.
+        /// </summary>
+        private void LoadAllProfileConfigurations(Profile profile) {
+            // Apply first configuration to current instance
+            ApplyProfileConfiguration(profile, profile.RegionConfigurations[0]);
+
+            // Open new MainForm windows for remaining configurations
+            for (int i = 1; i < profile.RegionConfigurations.Count; i++) {
+                try {
+                    var config = profile.RegionConfigurations[i];
+
+                    // Create new MainForm window with default startup options
+                    var newForm = new MainForm(StartupOptions.Factory.CreateOptions(new string[0]));
+
+                    // Set window position and size before showing
+                    newForm.StartPosition = FormStartPosition.Manual;
+                    newForm.Location = config.WindowLocation;
+                    newForm.Size = config.WindowSize;
+
+                    // Apply the configuration after form is shown
+                    newForm.Shown += (sender, e) => {
+                        try {
+                            var form = (MainForm)sender;
+                            form.ApplyProfileConfiguration(profile, config);
+                        }
+                        catch (Exception ex) {
+                            Log.WriteException($"Error applying configuration {config.Name}", ex);
+                        }
+                    };
+
+                    // Show the new form
+                    newForm.Show();
+                }
+                catch (Exception ex) {
+                    Log.WriteException($"Error creating window for configuration {i}", ex);
+                }
+            }
+
+            MessageBox.Show(
+                $"Profil '{profile.Name}' wurde geladen.\n" +
+                $"{profile.RegionConfigurations.Count} Fenster wurden geöffnet.",
+                "Profil geladen",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+        
+        /// <summary>
+        /// Shows a dialog to manage profiles.
+        /// </summary>
+        public void ShowManageProfilesDialog() {
+            using (var dialog = new Forms.ProfileManagerDialog()) {
+                dialog.ShowDialog(this);
+            }
+        }
+
+        /// <summary>
+        /// Shows a dialog to add the current region to an existing profile.
+        /// </summary>
+        public void ShowAddRegionToExistingProfileDialog() {
+            using (var dialog = new Forms.AddRegionToExistingProfileDialog()) {
+                if (dialog.ShowDialog(this) == DialogResult.OK) {
+                    try {
+                        var profile = ProfileManager.LoadProfile(dialog.SelectedProfileName);
+                        AddRegionToProfile(profile, dialog.RegionName, dialog.RegionAnchor);
+
+                        MessageBox.Show(
+                            $"Region '{dialog.RegionName}' wurde erfolgreich zum Profil '{dialog.SelectedProfileName}' hinzugefügt.",
+                            "Region hinzugefügt",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(
+                            $"Fehler beim Hinzufügen der Region:\n{ex.Message}",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        Log.WriteException("Error adding region to existing profile", ex);
+                    }
+                }
+            }
+        }
+    }
+}

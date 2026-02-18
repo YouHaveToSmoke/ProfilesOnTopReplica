@@ -1,0 +1,238 @@
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using OnTopReplica.WindowSeekers;
+
+namespace OnTopReplica {
+    
+    /// <summary>
+    /// Contains profile-related functionality of MainForm.
+    /// </summary>
+    partial class MainForm {
+        
+        /// <summary>
+        /// Creates a profile from the current window state.
+        /// </summary>
+        public Profile CreateProfileFromCurrentState(string profileName) {
+            var profile = new Profile(profileName);
+            
+            // Window information
+            if (CurrentThumbnailWindowHandle != null) {
+                profile.WindowHandle = (long)CurrentThumbnailWindowHandle.Handle;
+                profile.WindowTitle = CurrentThumbnailWindowHandle.Title;
+                profile.WindowClass = CurrentThumbnailWindowHandle.Class;
+                
+                // Try to get process name
+                try {
+                    var process = System.Diagnostics.Process.GetProcessById(
+                        Native.WindowMethods.GetWindowProcessId(CurrentThumbnailWindowHandle.Handle));
+                    profile.ProcessName = process.ProcessName;
+                }
+                catch {
+                    // Process might not be accessible
+                    profile.ProcessName = null;
+                }
+            }
+            
+            // Region settings
+            if (SelectedThumbnailRegion != null) {
+                profile.HasRegion = true;
+                profile.RegionBounds = SelectedThumbnailRegion.Relative 
+                    ? SelectedThumbnailRegion.Bounds 
+                    : SelectedThumbnailRegion.Bounds;
+                profile.RegionIsRelative = SelectedThumbnailRegion.Relative;
+            }
+            else {
+                profile.HasRegion = false;
+            }
+            
+            // Window position and size
+            profile.WindowLocation = this.Location;
+            profile.WindowSize = this.Size;
+            
+            // Visual settings
+            profile.Opacity = this.Opacity;
+            profile.ClickThrough = this.ClickThroughEnabled;
+            profile.ClickForwarding = this.ClickForwardingEnabled;
+            profile.ChromeVisible = this.IsChromeVisible;
+            profile.PositionLock = this.PositionLock;
+            profile.TopMost = this.TopMost;
+            
+            return profile;
+        }
+        
+        /// <summary>
+        /// Applies a profile to the current window.
+        /// </summary>
+        public void ApplyProfile(Profile profile) {
+            if (profile == null) {
+                throw new ArgumentNullException(nameof(profile));
+            }
+            
+            Log.Write("Applying profile: " + profile.Name);
+            
+            // First, try to find and set the window
+            WindowHandle handle = null;
+            
+            // Try by process name first (most reliable across restarts)
+            if (!string.IsNullOrEmpty(profile.ProcessName)) {
+                var processes = System.Diagnostics.Process.GetProcessesByName(profile.ProcessName);
+                if (processes.Length > 0) {
+                    // Find main window of process
+                    foreach (var proc in processes) {
+                        if (proc.MainWindowHandle != IntPtr.Zero) {
+                            handle = new WindowHandle(proc.MainWindowHandle);
+                            
+                            // Verify it matches the class if we have that info
+                            if (!string.IsNullOrEmpty(profile.WindowClass) && 
+                                handle.Class != profile.WindowClass) {
+                                continue;
+                            }
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Try by window class if process name didn't work
+            if (handle == null && !string.IsNullOrEmpty(profile.WindowClass)) {
+                var seeker = new ByClassWindowSeeker(profile.WindowClass) {
+                    OwnerHandle = this.Handle,
+                    SkipNotVisibleWindows = true
+                };
+                seeker.Refresh();
+                handle = seeker.Windows.FirstOrDefault();
+            }
+            
+            // Try by window title if we still don't have a match
+            if (handle == null && !string.IsNullOrEmpty(profile.WindowTitle)) {
+                var seeker = new ByTitleWindowSeeker(profile.WindowTitle) {
+                    OwnerHandle = this.Handle,
+                    SkipNotVisibleWindows = true
+                };
+                seeker.Refresh();
+                handle = seeker.Windows.FirstOrDefault();
+            }
+            
+            // Apply region if specified
+            ThumbnailRegion region = null;
+            if (profile.HasRegion) {
+                region = new ThumbnailRegion(profile.RegionBounds, profile.RegionIsRelative);
+            }
+            
+            // Set the thumbnail if we found a matching window
+            if (handle != null) {
+                SetThumbnail(handle, region);
+            }
+            else {
+                Log.Write("Warning: Could not find window for profile " + profile.Name);
+                MessageBox.Show(
+                    $"Das Fenster für Profil '{profile.Name}' konnte nicht gefunden werden.\n\n" +
+                    $"Prozess: {profile.ProcessName ?? "N/A"}\n" +
+                    $"Klasse: {profile.WindowClass ?? "N/A"}\n" +
+                    $"Titel: {profile.WindowTitle ?? "N/A"}",
+                    "Fenster nicht gefunden",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            
+            // Apply window position and size
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = profile.WindowLocation;
+            this.Size = profile.WindowSize;
+            
+            // Apply visual settings
+            this.Opacity = profile.Opacity;
+            this.ClickThroughEnabled = profile.ClickThrough;
+            this.ClickForwardingEnabled = profile.ClickForwarding;
+            this.IsChromeVisible = profile.ChromeVisible;
+            this.PositionLock = profile.PositionLock;
+            this.TopMost = profile.TopMost;
+            
+            Log.Write("Profile applied successfully: " + profile.Name);
+        }
+        
+        /// <summary>
+        /// Shows a dialog to save the current state as a profile.
+        /// </summary>
+        public void ShowSaveProfileDialog() {
+            using (var dialog = new Forms.ProfileNameDialog()) {
+                dialog.Text = "Profil speichern";
+                dialog.PromptText = "Geben Sie einen Namen für das Profil ein:";
+                
+                if (dialog.ShowDialog(this) == DialogResult.OK) {
+                    var profileName = dialog.ProfileName;
+                    
+                    if (ProfileManager.ProfileExists(profileName)) {
+                        var result = MessageBox.Show(
+                            $"Ein Profil mit dem Namen '{profileName}' existiert bereits.\nMöchten Sie es überschreiben?",
+                            "Profil überschreiben",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        );
+                        
+                        if (result != DialogResult.Yes) {
+                            return;
+                        }
+                    }
+                    
+                    try {
+                        var profile = CreateProfileFromCurrentState(profileName);
+                        ProfileManager.SaveProfile(profile);
+                        
+                        MessageBox.Show(
+                            $"Profil '{profileName}' wurde erfolgreich gespeichert.",
+                            "Profil gespeichert",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(
+                            $"Fehler beim Speichern des Profils:\n{ex.Message}",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        Log.WriteException("Error saving profile", ex);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Shows a dialog to load a profile.
+        /// </summary>
+        public void ShowLoadProfileDialog() {
+            using (var dialog = new Forms.ProfileSelectionDialog()) {
+                if (dialog.ShowDialog(this) == DialogResult.OK) {
+                    try {
+                        var profile = ProfileManager.LoadProfile(dialog.SelectedProfileName);
+                        ApplyProfile(profile);
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(
+                            $"Fehler beim Laden des Profils:\n{ex.Message}",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        Log.WriteException("Error loading profile", ex);
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Shows a dialog to manage profiles.
+        /// </summary>
+        public void ShowManageProfilesDialog() {
+            using (var dialog = new Forms.ProfileManagerDialog()) {
+                dialog.ShowDialog(this);
+            }
+        }
+    }
+}

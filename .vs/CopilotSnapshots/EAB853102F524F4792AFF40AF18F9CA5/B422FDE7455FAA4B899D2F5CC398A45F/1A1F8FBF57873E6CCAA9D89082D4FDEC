@@ -1,0 +1,174 @@
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace OnTopReplica.Forms {
+    
+    /// <summary>
+    /// Dialog to select an existing profile and add the current region to it.
+    /// </summary>
+    public class AddRegionToExistingProfileDialog : Form {
+        
+        private Label lblSelectProfile;
+        private ComboBox cmbProfiles;
+        private Label lblRegionName;
+        private TextBox txtRegionName;
+        private GroupBox grpAnchor;
+        private RadioButton rbTopLeft;
+        private RadioButton rbTopRight;
+        private RadioButton rbBottomLeft;
+        private RadioButton rbBottomRight;
+        private CheckBox chkScaleWithSource;
+        private Button btnOK;
+        private Button btnCancel;
+
+        public string SelectedProfileName => cmbProfiles.SelectedItem?.ToString();
+        public string RegionName => txtRegionName.Text.Trim();
+        public RegionAnchor RegionAnchor {
+            get {
+                if (rbTopRight.Checked) return RegionAnchor.TopRight;
+                if (rbBottomLeft.Checked) return RegionAnchor.BottomLeft;
+                if (rbBottomRight.Checked) return RegionAnchor.BottomRight;
+                return RegionAnchor.TopLeft;
+            }
+        }
+        public bool ScaleWithSourceWindow => chkScaleWithSource.Checked;
+        
+        public AddRegionToExistingProfileDialog() {
+            InitializeComponent();
+            LoadProfiles();
+        }
+        
+        private void InitializeComponent() {
+            this.lblSelectProfile = new Label();
+            this.cmbProfiles = new ComboBox();
+            this.lblRegionName = new Label();
+            this.txtRegionName = new TextBox();
+            this.grpAnchor = new GroupBox();
+            this.rbTopLeft = new RadioButton();
+            this.rbTopRight = new RadioButton();
+            this.rbBottomLeft = new RadioButton();
+            this.rbBottomRight = new RadioButton();
+            this.chkScaleWithSource = new CheckBox();
+            this.btnOK = new Button();
+            this.btnCancel = new Button();
+            this.grpAnchor.SuspendLayout();
+            this.SuspendLayout();
+            
+            // lblSelectProfile
+            this.lblSelectProfile.AutoSize = true;
+            this.lblSelectProfile.Location = new System.Drawing.Point(12, 15);
+            this.lblSelectProfile.Size = new System.Drawing.Size(360, 13);
+            this.lblSelectProfile.Text = "Profil auswählen:";
+            
+            // cmbProfiles
+            this.cmbProfiles.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbProfiles.FormattingEnabled = true;
+            this.cmbProfiles.Location = new System.Drawing.Point(12, 35);
+            this.cmbProfiles.Size = new System.Drawing.Size(360, 21);
+            this.cmbProfiles.TabIndex = 0;
+            
+            // lblRegionName
+            this.lblRegionName.AutoSize = true;
+            this.lblRegionName.Location = new System.Drawing.Point(12, 65);
+            this.lblRegionName.Size = new System.Drawing.Size(360, 13);
+            this.lblRegionName.Text = "Name für diese Region:";
+            
+            // txtRegionName
+            this.txtRegionName.Location = new System.Drawing.Point(12, 85);
+            this.txtRegionName.Size = new System.Drawing.Size(360, 20);
+            this.txtRegionName.TabIndex = 1;
+            
+            // chkAnchorBottomRight
+            this.chkAnchorBottomRight.AutoSize = true;
+            this.chkAnchorBottomRight.Location = new System.Drawing.Point(12, 115);
+            this.chkAnchorBottomRight.Size = new System.Drawing.Size(360, 17);
+            this.chkAnchorBottomRight.TabIndex = 2;
+            this.chkAnchorBottomRight.Text = "Region von rechts unten verankern";
+            this.chkAnchorBottomRight.UseVisualStyleBackColor = true;
+            
+            // btnOK
+            this.btnOK.Location = new System.Drawing.Point(216, 145);
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 3;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += BtnOK_Click;
+            
+            // btnCancel
+            this.btnCancel.DialogResult = DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(297, 145);
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            
+            // AddRegionToExistingProfileDialog
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(384, 180);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.chkAnchorBottomRight);
+            this.Controls.Add(this.txtRegionName);
+            this.Controls.Add(this.lblRegionName);
+            this.Controls.Add(this.cmbProfiles);
+            this.Controls.Add(this.lblSelectProfile);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.Text = "Region zu Profil hinzufügen";
+            
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+        
+        private void LoadProfiles() {
+            cmbProfiles.Items.Clear();
+            
+            var profiles = ProfileManager.GetAllProfiles();
+            
+            if (profiles.Count == 0) {
+                cmbProfiles.Items.Add("(Keine Profile vorhanden)");
+                cmbProfiles.Enabled = false;
+            }
+            else {
+                foreach (var profile in profiles) {
+                    cmbProfiles.Items.Add(profile.Name);
+                }
+                
+                if (cmbProfiles.Items.Count > 0) {
+                    cmbProfiles.SelectedIndex = 0;
+                }
+            }
+        }
+        
+        private void BtnOK_Click(object sender, EventArgs e) {
+            if (cmbProfiles.SelectedItem == null || cmbProfiles.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie ein Profil aus.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cmbProfiles.Focus();
+                return;
+            }
+            
+            if (string.IsNullOrWhiteSpace(txtRegionName.Text)) {
+                MessageBox.Show(
+                    "Bitte geben Sie einen Namen für die Region ein.",
+                    "Eingabe erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtRegionName.Focus();
+                return;
+            }
+            
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+    }
+}

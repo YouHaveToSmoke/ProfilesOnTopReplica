@@ -1,0 +1,507 @@
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace OnTopReplica.Forms {
+    
+    public class ProfileManagerDialog : Form {
+
+        private Label lblProfiles;
+        private ListBox lstProfiles;
+        private Button btnLoad;
+        private Button btnDelete;
+        private Button btnClose;
+        private Label lblInfo;
+        private TextBox txtInfo;
+        private Button btnAddRegion;
+        private Button btnRemoveRegion;
+        private Label lblRegions;
+        private ListBox lstRegions;
+
+        public ProfileManagerDialog() {
+            InitializeComponent();
+            LoadProfiles();
+        }
+        
+        private void InitializeComponent() {
+            this.lblProfiles = new System.Windows.Forms.Label();
+            this.lstProfiles = new System.Windows.Forms.ListBox();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.txtInfo = new System.Windows.Forms.TextBox();
+            this.btnAddRegion = new System.Windows.Forms.Button();
+            this.btnRemoveRegion = new System.Windows.Forms.Button();
+            this.lblRegions = new System.Windows.Forms.Label();
+            this.lstRegions = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // lblProfiles
+            // 
+            this.lblProfiles.AutoSize = true;
+            this.lblProfiles.Location = new System.Drawing.Point(12, 15);
+            this.lblProfiles.Name = "lblProfiles";
+            this.lblProfiles.Size = new System.Drawing.Size(44, 13);
+            this.lblProfiles.TabIndex = 10;
+            this.lblProfiles.Text = "Profiles:";
+            // 
+            // lstProfiles
+            // 
+            this.lstProfiles.FormattingEnabled = true;
+            this.lstProfiles.Location = new System.Drawing.Point(12, 35);
+            this.lstProfiles.Name = "lstProfiles";
+            this.lstProfiles.Size = new System.Drawing.Size(250, 147);
+            this.lstProfiles.TabIndex = 0;
+            this.lstProfiles.SelectedIndexChanged += new System.EventHandler(this.LstProfiles_SelectedIndexChanged);
+            this.lstProfiles.DoubleClick += new System.EventHandler(this.LstProfiles_DoubleClick);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(12, 320);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnLoad.TabIndex = 1;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(93, 320);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 2;
+            this.btnDelete.Text = "Remove";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(500, 349);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "Close menu";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(275, 15);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(103, 13);
+            this.lblInfo.TabIndex = 9;
+            this.lblInfo.Text = "Detailed information:";
+            // 
+            // txtInfo
+            // 
+            this.txtInfo.BackColor = System.Drawing.SystemColors.Window;
+            this.txtInfo.Location = new System.Drawing.Point(275, 35);
+            this.txtInfo.Multiline = true;
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.ReadOnly = true;
+            this.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtInfo.Size = new System.Drawing.Size(300, 275);
+            this.txtInfo.TabIndex = 3;
+            // 
+            // btnAddRegion
+            // 
+            this.btnAddRegion.Location = new System.Drawing.Point(12, 349);
+            this.btnAddRegion.Name = "btnAddRegion";
+            this.btnAddRegion.Size = new System.Drawing.Size(120, 23);
+            this.btnAddRegion.TabIndex = 6;
+            this.btnAddRegion.Text = "Add region";
+            this.btnAddRegion.UseVisualStyleBackColor = true;
+            this.btnAddRegion.Click += new System.EventHandler(this.BtnAddRegion_Click);
+            // 
+            // btnRemoveRegion
+            // 
+            this.btnRemoveRegion.Location = new System.Drawing.Point(138, 349);
+            this.btnRemoveRegion.Name = "btnRemoveRegion";
+            this.btnRemoveRegion.Size = new System.Drawing.Size(124, 23);
+            this.btnRemoveRegion.TabIndex = 7;
+            this.btnRemoveRegion.Text = "Remove region";
+            this.btnRemoveRegion.UseVisualStyleBackColor = true;
+            this.btnRemoveRegion.Click += new System.EventHandler(this.BtnRemoveRegion_Click);
+            // 
+            // lblRegions
+            // 
+            this.lblRegions.AutoSize = true;
+            this.lblRegions.Location = new System.Drawing.Point(12, 195);
+            this.lblRegions.Name = "lblRegions";
+            this.lblRegions.Size = new System.Drawing.Size(135, 13);
+            this.lblRegions.TabIndex = 8;
+            this.lblRegions.Text = "Regions of selected profile:";
+            // 
+            // lstRegions
+            // 
+            this.lstRegions.FormattingEnabled = true;
+            this.lstRegions.Location = new System.Drawing.Point(12, 215);
+            this.lstRegions.Name = "lstRegions";
+            this.lstRegions.Size = new System.Drawing.Size(250, 95);
+            this.lstRegions.TabIndex = 5;
+            // 
+            // ProfileManagerDialog
+            // 
+            this.ClientSize = new System.Drawing.Size(587, 384);
+            this.Controls.Add(this.btnRemoveRegion);
+            this.Controls.Add(this.btnAddRegion);
+            this.Controls.Add(this.lstRegions);
+            this.Controls.Add(this.lblRegions);
+            this.Controls.Add(this.txtInfo);
+            this.Controls.Add(this.lblInfo);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.lstProfiles);
+            this.Controls.Add(this.lblProfiles);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "ProfileManagerDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Edit profiles";
+            this.Load += new System.EventHandler(this.ProfileManagerDialog_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+        
+        private void LoadProfiles() {
+            lstProfiles.Items.Clear();
+            txtInfo.Clear();
+            
+            var profiles = ProfileManager.GetAllProfiles();
+            
+            if (profiles.Count == 0) {
+                lstProfiles.Items.Add("(Keine Profile vorhanden)");
+                lstProfiles.Enabled = false;
+                btnLoad.Enabled = false;
+                btnDelete.Enabled = false;
+            }
+            else {
+                lstProfiles.Enabled = true;
+                btnLoad.Enabled = true;
+                btnDelete.Enabled = true;
+                
+                foreach (var profile in profiles) {
+                    lstProfiles.Items.Add(profile.Name);
+                }
+                
+                if (lstProfiles.Items.Count > 0) {
+                    lstProfiles.SelectedIndex = 0;
+                }
+            }
+        }
+        
+        private void LstProfiles_SelectedIndexChanged(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem == null || lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                txtInfo.Clear();
+                lstRegions.Items.Clear();
+                btnLoad.Enabled = false;
+                btnDelete.Enabled = false;
+                btnAddRegion.Enabled = false;
+                btnRemoveRegion.Enabled = false;
+                return;
+            }
+
+            try {
+                var profile = ProfileManager.LoadProfile(lstProfiles.SelectedItem.ToString());
+                DisplayProfileInfo(profile);
+                LoadRegions(profile);
+
+                btnLoad.Enabled = true;
+                btnDelete.Enabled = true;
+
+                // Only enable "Add Region" if there's a MainForm owner with a thumbnail
+                if (this.Owner is MainForm mainForm && mainForm.IsShowingThumbnail) {
+                    btnAddRegion.Enabled = true;
+                } else {
+                    btnAddRegion.Enabled = false;
+                }
+
+                // Only enable "Remove Region" if there are regions to remove
+                btnRemoveRegion.Enabled = profile.RegionConfigurations != null && 
+                                          profile.RegionConfigurations.Count > 0 && 
+                                          !lstRegions.Items[0].ToString().StartsWith("(");
+            }
+            catch (Exception ex) {
+                txtInfo.Text = "Fehler beim Laden der Profil-Informationen:\r\n" + ex.Message;
+                lstRegions.Items.Clear();
+                btnLoad.Enabled = false;
+                btnDelete.Enabled = false;
+                btnAddRegion.Enabled = false;
+                btnRemoveRegion.Enabled = false;
+            }
+        }
+
+        private void LoadRegions(Profile profile) {
+            lstRegions.Items.Clear();
+
+            if (profile.RegionConfigurations == null || profile.RegionConfigurations.Count == 0) {
+                lstRegions.Items.Add("(Keine Regionen vorhanden)");
+            }
+            else {
+                foreach (var config in profile.RegionConfigurations) {
+                    lstRegions.Items.Add(config.Name);
+                }
+            }
+        }
+        
+        private void DisplayProfileInfo(Profile profile) {
+            var info = new System.Text.StringBuilder();
+            info.AppendLine($"Name: {profile.Name}");
+            info.AppendLine($"Erstellt: {profile.CreatedDate:dd.MM.yyyy HH:mm}");
+            info.AppendLine($"Geändert: {profile.LastModified:dd.MM.yyyy HH:mm}");
+            info.AppendLine();
+            info.AppendLine("Fenster:");
+            info.AppendLine($"  Prozess: {profile.ProcessName ?? "N/A"}");
+            info.AppendLine($"  Titel: {profile.WindowTitle ?? "N/A"}");
+            info.AppendLine($"  Klasse: {profile.WindowClass ?? "N/A"}");
+            info.AppendLine();
+            info.AppendLine($"Anzahl Regionen: {profile.RegionConfigurations?.Count ?? 0}");
+
+            txtInfo.Text = info.ToString();
+        }
+        
+        private void BtnLoad_Click(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem == null || lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie ein Profil aus.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
+            this.DialogResult = DialogResult.OK;
+
+            try {
+                var profile = ProfileManager.LoadProfile(lstProfiles.SelectedItem.ToString());
+                if (this.Owner is MainForm mainForm) {
+                    // Convert legacy format if needed
+                    if (profile.IsLegacyFormat()) {
+                        profile.ConvertFromLegacy();
+                        ProfileManager.SaveProfile(profile);
+                    }
+
+                    if (profile.RegionConfigurations.Count > 0) {
+                        // Apply first configuration
+                        mainForm.ApplyProfileConfiguration(profile, profile.RegionConfigurations[0]);
+                    }
+                }
+                this.Close();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(
+                    $"Fehler beim Laden des Profils:\r\n{ex.Message}",
+                    "Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+        
+        private void BtnDelete_Click(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem == null || lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie ein Profil aus.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
+            var profileName = lstProfiles.SelectedItem.ToString();
+            var result = MessageBox.Show(
+                $"Möchten Sie das Profil '{profileName}' wirklich löschen?",
+                "Profil löschen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+            
+            if (result == DialogResult.Yes) {
+                try {
+                    ProfileManager.DeleteProfile(profileName);
+                    LoadProfiles();
+                    
+                    MessageBox.Show(
+                        $"Profil '{profileName}' wurde gelöscht.",
+                        "Profil gelöscht",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(
+                        $"Fehler beim Löschen des Profils:\r\n{ex.Message}",
+                        "Fehler",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
+        }
+
+        private void BtnAddRegion_Click(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem == null || lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie ein Profil aus.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            var profileName = lstProfiles.SelectedItem.ToString();
+
+            // Check if MainForm owner has a current state to add
+            if (!(this.Owner is MainForm mainForm)) {
+                MessageBox.Show(
+                    "Kann die aktuelle Region nicht hinzufügen.\nBitte öffnen Sie diesen Dialog aus dem Hauptfenster.",
+                    "Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            // Check if a window is being displayed
+            if (!mainForm.IsShowingThumbnail) {
+                MessageBox.Show(
+                    "Es wird aktuell kein Fenster angezeigt.\n\n" +
+                    "Bitte wählen Sie zuerst ein Fenster aus, das Sie zu diesem Profil hinzufügen möchten.",
+                    "Kein Fenster ausgewählt",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                return;
+            }
+
+            try {
+                var profile = ProfileManager.LoadProfile(profileName);
+
+                using (var regionDialog = new AddRegionToProfileDialog()) {
+                    if (regionDialog.ShowDialog(this) == DialogResult.OK) {
+                        // Add the current state as a new region to the profile
+                        mainForm.AddRegionToProfile(profile, regionDialog.RegionName, regionDialog.RegionAnchor, regionDialog.ScaleWithSourceWindow);
+
+                        // Reload the profile to show updated regions
+                        profile = ProfileManager.LoadProfile(profileName);
+                        LoadRegions(profile);
+                        DisplayProfileInfo(profile);
+
+                        MessageBox.Show(
+                            $"Region '{regionDialog.RegionName}' wurde erfolgreich zum Profil '{profileName}' hinzugefügt.",
+                            "Region hinzugefügt",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(
+                    $"Fehler beim Hinzufügen der Region:\r\n{ex.Message}",
+                    "Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                Log.WriteException("Error adding region to profile", ex);
+            }
+        }
+
+        private void BtnRemoveRegion_Click(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem == null || lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie ein Profil aus.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            if (lstRegions.SelectedItem == null || lstRegions.SelectedItem.ToString().StartsWith("(")) {
+                MessageBox.Show(
+                    "Bitte wählen Sie eine Region aus, die entfernt werden soll.",
+                    "Auswahl erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            var profileName = lstProfiles.SelectedItem.ToString();
+            var regionName = lstRegions.SelectedItem.ToString();
+
+            var result = MessageBox.Show(
+                $"Möchten Sie die Region '{regionName}' wirklich aus dem Profil '{profileName}' entfernen?",
+                "Region entfernen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes) {
+                try {
+                    var profile = ProfileManager.LoadProfile(profileName);
+
+                    // Find and remove the region configuration
+                    var configToRemove = profile.RegionConfigurations.FirstOrDefault(c => c.Name == regionName);
+                    if (configToRemove != null) {
+                        profile.RegionConfigurations.Remove(configToRemove);
+                        profile.LastModified = DateTime.Now;
+                        ProfileManager.SaveProfile(profile);
+
+                        // Reload the regions list
+                        LoadRegions(profile);
+                        DisplayProfileInfo(profile);
+
+                        MessageBox.Show(
+                            $"Region '{regionName}' wurde erfolgreich entfernt.",
+                            "Region entfernt",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    else {
+                        MessageBox.Show(
+                            $"Region '{regionName}' konnte nicht gefunden werden.",
+                            "Fehler",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(
+                        $"Fehler beim Entfernen der Region:\r\n{ex.Message}",
+                        "Fehler",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    Log.WriteException("Error removing region from profile", ex);
+                }
+            }
+        }
+
+        private void LstProfiles_DoubleClick(object sender, EventArgs e) {
+            if (lstProfiles.SelectedItem != null && !lstProfiles.SelectedItem.ToString().StartsWith("(")) {
+                BtnLoad_Click(sender, e);
+            }
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+        private void ProfileManagerDialog_Load(object sender, EventArgs e) {
+
+        }
+    }
+}

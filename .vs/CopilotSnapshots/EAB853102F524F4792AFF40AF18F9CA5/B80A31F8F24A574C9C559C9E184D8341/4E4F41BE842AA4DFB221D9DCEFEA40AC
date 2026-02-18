@@ -1,0 +1,140 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace OnTopReplica {
+
+    /// <summary>
+    /// Defines the anchor point for region coordinates.
+    /// </summary>
+    public enum RegionAnchor {
+        /// <summary>
+        /// Region is anchored to top-left corner.
+        /// </summary>
+        TopLeft,
+
+        /// <summary>
+        /// Region is anchored to bottom-right corner.
+        /// </summary>
+        BottomRight
+    }
+
+    /// <summary>
+    /// Represents a saved profile with all window settings.
+    /// </summary>
+    [Serializable]
+    public class Profile {
+
+        public string Name { get; set; }
+
+        public string ProcessName { get; set; }
+
+        public string WindowTitle { get; set; }
+
+        public string WindowClass { get; set; }
+
+        public long? WindowHandle { get; set; }
+
+        public Size OriginalWindowSize { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime LastModified { get; set; }
+
+        /// <summary>
+        /// List of region configurations in this profile.
+        /// </summary>
+        public List<ProfileRegionConfiguration> RegionConfigurations { get; set; }
+
+        // Legacy properties for backwards compatibility
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool HasRegion { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public Rectangle RegionBounds { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool RegionIsRelative { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public RegionAnchor RegionAnchor { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public Point WindowLocation { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public Size WindowSize { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public double Opacity { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool ClickThrough { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool ClickForwarding { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool ChromeVisible { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public ScreenPosition? PositionLock { get; set; }
+
+        [Obsolete("Use RegionConfigurations instead")]
+        public bool TopMost { get; set; }
+
+        public Profile() {
+            CreatedDate = DateTime.Now;
+            LastModified = DateTime.Now;
+            RegionConfigurations = new List<ProfileRegionConfiguration>();
+
+            // Set defaults for legacy properties
+            Opacity = 1.0;
+            ChromeVisible = true;
+            TopMost = true;
+            RegionAnchor = RegionAnchor.TopLeft;
+        }
+
+        public Profile(string name) : this() {
+            Name = name;
+        }
+
+        /// <summary>
+        /// Checks if this profile is using the old single-region format.
+        /// </summary>
+        public bool IsLegacyFormat() {
+            return RegionConfigurations.Count == 0 && HasRegion;
+        }
+
+        /// <summary>
+        /// Converts legacy single-region profile to new multi-region format.
+        /// </summary>
+        public void ConvertFromLegacy() {
+            if (!IsLegacyFormat()) {
+                return;
+            }
+
+            var config = new ProfileRegionConfiguration("Default") {
+                HasRegion = this.HasRegion,
+                RegionBounds = this.RegionBounds,
+                RegionIsRelative = this.RegionIsRelative,
+                RegionAnchor = this.RegionAnchor,
+                WindowLocation = this.WindowLocation,
+                WindowSize = this.WindowSize,
+                Opacity = this.Opacity,
+                ClickThrough = this.ClickThrough,
+                ClickForwarding = this.ClickForwarding,
+                ChromeVisible = this.ChromeVisible,
+                PositionLock = this.PositionLock,
+                TopMost = this.TopMost
+            };
+
+            RegionConfigurations.Add(config);
+        }
+
+        public override string ToString() {
+            return Name ?? "Unnamed Profile";
+        }
+    }
+}

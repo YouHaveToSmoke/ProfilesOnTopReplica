@@ -1,0 +1,139 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace OnTopReplica.Forms {
+    
+    public class AddRegionToProfileDialog : Form {
+        
+        private Label lblPrompt;
+        private TextBox txtRegionName;
+        private GroupBox grpAnchor;
+        private RadioButton rbTopLeft;
+        private RadioButton rbTopRight;
+        private RadioButton rbBottomLeft;
+        private RadioButton rbBottomRight;
+        private CheckBox chkScaleWithSource;
+        private Button btnOK;
+        private Button btnCancel;
+
+        public string RegionName => txtRegionName.Text.Trim();
+
+        public RegionAnchor RegionAnchor {
+            get {
+                if (rbTopRight.Checked) return RegionAnchor.TopRight;
+                if (rbBottomLeft.Checked) return RegionAnchor.BottomLeft;
+                if (rbBottomRight.Checked) return RegionAnchor.BottomRight;
+                return RegionAnchor.TopLeft;
+            }
+        }
+
+        public bool ScaleWithSourceWindow => chkScaleWithSource.Checked;
+        
+        public AddRegionToProfileDialog() {
+            InitializeComponent();
+        }
+        
+        private void InitializeComponent() {
+            this.lblPrompt = new System.Windows.Forms.Label();
+            this.txtRegionName = new System.Windows.Forms.TextBox();
+            this.chkAnchorBottomRight = new System.Windows.Forms.CheckBox();
+            this.chkScaleWithSource = new System.Windows.Forms.CheckBox();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // lblPrompt
+            // 
+            this.lblPrompt.AutoSize = true;
+            this.lblPrompt.Location = new System.Drawing.Point(12, 15);
+            this.lblPrompt.Name = "lblPrompt";
+            this.lblPrompt.Size = new System.Drawing.Size(79, 13);
+            this.lblPrompt.TabIndex = 4;
+            this.lblPrompt.Text = "Name of region";
+            // 
+            // txtRegionName
+            // 
+            this.txtRegionName.Location = new System.Drawing.Point(12, 35);
+            this.txtRegionName.Name = "txtRegionName";
+            this.txtRegionName.Size = new System.Drawing.Size(360, 20);
+            this.txtRegionName.TabIndex = 0;
+            // 
+            // chkAnchorBottomRight
+            // 
+            this.chkAnchorBottomRight.AutoSize = true;
+            this.chkAnchorBottomRight.Location = new System.Drawing.Point(12, 65);
+            this.chkAnchorBottomRight.Name = "chkAnchorBottomRight";
+            this.chkAnchorBottomRight.Size = new System.Drawing.Size(201, 17);
+            this.chkAnchorBottomRight.TabIndex = 1;
+            this.chkAnchorBottomRight.Text = "Recalculate position from right border";
+            this.chkAnchorBottomRight.UseVisualStyleBackColor = true;
+            // 
+            // chkScaleWithSource
+            // 
+            this.chkScaleWithSource.AutoSize = true;
+            this.chkScaleWithSource.Location = new System.Drawing.Point(12, 92);
+            this.chkScaleWithSource.Name = "chkScaleWithSource";
+            this.chkScaleWithSource.Size = new System.Drawing.Size(300, 17);
+            this.chkScaleWithSource.TabIndex = 5;
+            this.chkScaleWithSource.Text = "Fenstergröße mit Quell-Fenster-Auflösung skalieren";
+            this.chkScaleWithSource.UseVisualStyleBackColor = true;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(216, 122);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 2;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += BtnOK_Click;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(297, 122);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // AddRegionToProfileDialog
+            // 
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(384, 157);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.chkScaleWithSource);
+            this.Controls.Add(this.chkAnchorBottomRight);
+            this.Controls.Add(this.txtRegionName);
+            this.Controls.Add(this.lblPrompt);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "AddRegionToProfileDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Add region";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+        
+        private void BtnOK_Click(object sender, EventArgs e) {
+            if (string.IsNullOrWhiteSpace(txtRegionName.Text)) {
+                MessageBox.Show(
+                    "Bitte geben Sie einen Namen für die Region ein.",
+                    "Eingabe erforderlich",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtRegionName.Focus();
+                return;
+            }
+            
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+    }
+}
