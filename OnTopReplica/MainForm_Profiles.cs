@@ -306,8 +306,21 @@ namespace OnTopReplica {
                 }
             }
             
-            // Set the thumbnail
+            // Set the thumbnail FIRST - many visual settings depend on a thumbnail being shown
             SetThumbnail(handle, region);
+
+            // Apply chrome IMMEDIATELY after thumbnail (before position calculation!)
+            // We set FormBorderStyle directly to bypass the IsChromeVisible setter which:
+            //   1. Checks IsShowingThumbnail (may fail for new windows)
+            //   2. Shifts Location by FrameBorderSize (breaks our calculated position)
+            if (!config.ChromeVisible) {
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
+            else {
+                this.FormBorderStyle = DefaultBorderStyle;
+            }
+            Program.Platform.OnFormStateChange(this);
+            this.Invalidate();
 
             // Apply window position and size
             this.StartPosition = FormStartPosition.Manual;
@@ -361,16 +374,34 @@ namespace OnTopReplica {
                 Log.Write($"Using absolute position: ({config.WindowLocation.X}, {config.WindowLocation.Y})");
             }
 
-            // Apply visual settings FIRST (especially chrome, which affects size calculation)
+            // Apply visual settings AFTER thumbnail is shown and position is set
+            // Chrome was already applied above (before position calculation)
+
+            // 1. Set ClientSize AFTER chrome state to avoid DWM border calculation issues
+            this.ClientSize = config.WindowSize;
+
+            // 2. Opacity
             this.Opacity = config.Opacity;
-            this.ClickThroughEnabled = config.ClickThrough;
-            this.ClickForwardingEnabled = config.ClickForwarding;
-            this.IsChromeVisible = config.ChromeVisible;
+
+            // 3. Click forwarding (skip first-time dialog when loading from profile)
+            _thumbnailPanel.ReportThumbnailClicks = config.ClickForwarding;
+
+            // 4. Position lock and TopMost (BEFORE click-through)
             this.PositionLock = config.PositionLock;
             this.TopMost = config.TopMost;
 
-            // Set ClientSize AFTER chrome state to avoid DWM border calculation issues
-            this.ClientSize = config.WindowSize;
+            // 5. Click-through LAST - set directly to avoid OnActivated deactivating it
+            // The ClickThroughEnabled setter calls this.Activate() which triggers
+            // OnActivated which disables click-through immediately.
+            // So we set the backing field and TransparencyKey directly.
+            if (config.ClickThrough) {
+                this.TransparencyKey = Color.Black;
+                _clickThrough = true;
+                // Suppress the next OnActivated from deactivating click-through
+                // (e.g. when MessageBox steals and returns focus)
+                this.SuppressClickThroughDeactivation = true;
+                Log.Write("Click-through enabled directly for profile load");
+            }
 
             Log.Write($"Applied visual settings: Opacity={config.Opacity:P0}, Chrome={config.ChromeVisible}, ClickThrough={config.ClickThrough}, ClickForward={config.ClickForwarding}, TopMost={config.TopMost}");
             Log.Write("Profile configuration applied successfully: " + config.Name);
@@ -581,6 +612,9 @@ namespace OnTopReplica {
                     // Create new MainForm window with default startup options
                     var newForm = new MainForm(StartupOptions.Factory.CreateOptions(new string[0]));
 
+                    // Mark this form to skip startup options (will be configured by profile)
+                    newForm.SkipStartupOptionsApply = true;
+
                     // Set startup position
                     newForm.StartPosition = FormStartPosition.Manual;
 
@@ -701,6 +735,13 @@ namespace OnTopReplica {
 
                         // Add all instances as region configurations
                         foreach (var instanceConfig in dialog.InstanceConfigurations) {
+                            Log.Write($"Saving instance '{instanceConfig.RegionName}': " +
+                                $"Opacity={instanceConfig.Instance.Opacity:P0}, " +
+                                $"Chrome={instanceConfig.Instance.IsChromeVisible}, " +
+                                $"ClickThrough={instanceConfig.Instance.ClickThroughEnabled}, " +
+                                $"ClickForward={instanceConfig.Instance.ClickForwardingEnabled}, " +
+                                $"TopMost={instanceConfig.Instance.TopMost}");
+
                             var config = CreateRegionConfigurationFromInstance(
                                 instanceConfig.Instance,
                                 instanceConfig.RegionName,

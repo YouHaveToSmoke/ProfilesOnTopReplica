@@ -23,6 +23,11 @@ namespace OnTopReplica {
         WindowListMenuManager _windowListManager;
         public FullscreenFormManager FullscreenManager { get; private set; }
 
+        /// <summary>
+        /// When true, startup options will not be applied in OnShown (used for profile-loaded windows).
+        /// </summary>
+        public bool SkipStartupOptionsApply { get; set; }
+
         Options _startupOptions;
 
         public MainForm(Options startupOptions) {
@@ -81,8 +86,8 @@ namespace OnTopReplica {
             Log.Write("Main form shown");
             base.OnShown(e);
 
-            //Apply startup options
-            if (_startupOptions != null) {
+            //Apply startup options (skip for profile-loaded windows)
+            if (_startupOptions != null && !SkipStartupOptionsApply) {
                 _startupOptions.Apply(this);
             }
         }
@@ -119,13 +124,20 @@ namespace OnTopReplica {
             }
         }
 
+        /// <summary>
+        /// When true, OnActivated will not deactivate click-through (used during profile loading).
+        /// </summary>
+        public bool SuppressClickThroughDeactivation { get; set; }
+
         protected override void OnActivated(EventArgs e) {
             base.OnActivated(e);
 
             //Deactivate click-through if form is reactivated
-            if (ClickThroughEnabled) {
+            //(but not during profile loading)
+            if (ClickThroughEnabled && !SuppressClickThroughDeactivation) {
                 ClickThroughEnabled = false;
             }
+            SuppressClickThroughDeactivation = false;
 
             Program.Platform.RestoreForm(this);
         }
